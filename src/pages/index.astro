@@ -11,6 +11,26 @@ import CTASection from '../components/CTASection.astro';
 ---
 
 <BaseLayout title="BuildLens — Construction Logistics Platform">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'BuildLens',
+    description: 'Construction logistics management platform that consolidates purchase orders, submittals, scheduling, and field coordination into a single operational hub.',
+    url: 'https://buildlens.com',
+    logo: 'https://buildlens.com/og-image.png',
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'info@buildlens.com',
+      telephone: '+1-256-555-1234',
+      contactType: 'sales',
+    },
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: 'Madison',
+      addressRegion: 'AL',
+      addressCountry: 'US',
+    },
+  })} />
   <Hero />
   <Marquee />
   <ValueProp />
