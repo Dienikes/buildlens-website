@@ -1,9 +1,380 @@
 ---
+/**
+ * About Page — Founder story, credentials, stats, values, and CTA.
+ * 5 sections: Hero, Founder Bio, Stats Band, Values, CTA.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import timImg from '../assets/images/tim-rollins.png';
+
+const credentials = [
+  'B.S. Global Security & Management (Honors)',
+  'SAP ERP Certified',
+  'Project Management Certified',
+  'OSHA 30',
+  'Active TS/SCI Clearance',
+  'Army Demolitions Instructor',
+  'K9 Handler (Explosives Detection)',
+];
+
+const stats = [
+  { value: '20+', label: 'Years Active Duty', target: 20 },
+  { value: '16+', label: 'Combat Missions Led', target: 16 },
+  { value: '$20M+', label: 'Budget Managed', target: 20 },
+  { value: '500+', label: 'Soldiers Trained', target: 500 },
+];
+
+const values = [
+  {
+    title: 'Operator-First Design',
+    desc: 'Every feature in BuildLens exists because an operator needed it in the field. No bloat. No features built for demo slides. If it doesn\'t solve a real coordination problem, it doesn\'t ship.',
+  },
+  {
+    title: 'Single Source of Truth',
+    desc: 'Change a PO number in one place, it propagates to every submittal, BOM, schedule, and budget line that references it. No double-entry. No version drift. No "which spreadsheet is current?"',
+  },
+  {
+    title: 'Built to Ship',
+    desc: '80% now beats 100% never. We ship fast, iterate based on real operator feedback, and treat every deployment as a starting point — not a finish line.',
+  },
+];
 ---
 
-<BaseLayout title="About | BuildLens — Construction Logistics Platform">
-  <section class="min-h-screen flex items-center justify-center px-6">
-    <h1>About</h1>
+<BaseLayout
+  title="About | BuildLens — Construction Logistics Platform"
+  description="Built by a retired Green Beret with 20+ years of logistics experience. BuildLens brings military-grade operational discipline to construction coordination."
+>
+  <!-- Section 1: Hero -->
+  <section class="pt-40 pb-20 lg:pt-48 lg:pb-28 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <h1 class="about-hero-heading" data-reveal="lines">
+        Built by<br />
+        Operators.
+      </h1>
+      <div class="about-hero-rule mt-8" data-reveal="fade"></div>
+      <p
+        data-reveal="fade"
+        class="mt-8 text-lg lg:text-xl max-w-3xl"
+        style="color: var(--text-mid);"
+      >
+        BuildLens wasn't designed in a conference room. It was built from two decades
+        of coordinating logistics under pressure — moving people, equipment, and
+        materials where they needed to be, when they needed to be there. The construction
+        industry runs on the same operational complexity. We built the platform we wished we had.
+      </p>
+    </div>
+  </section>
+
+  <!-- Section 2: Founder Bio -->
+  <section class="py-20 lg:py-32 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="bio-grid">
+        <!-- Text Side -->
+        <div class="bio-text">
+          <!-- Background -->
+          <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
+            &#9675; Background
+          </p>
+          <p data-reveal="fade" class="text-lg leading-relaxed" style="color: var(--text-mid);">
+            Retired U.S. Army Green Beret with 20+ years of active duty service,
+            including 16 years with 1st Special Forces Group (Airborne). Served as the
+            logistics lead for a 200-person special operations task force — managing a
+            $20M+ budget across 16 combat missions in high-stakes, time-critical
+            environments. Every mission depended on the same thing construction projects
+            depend on: the right materials, at the right place, at the right time, with
+            zero margin for error.
+          </p>
+
+          <!-- Credentials -->
+          <p class="font-mono text-xs uppercase tracking-[0.2em] mt-12 mb-6" style="color: var(--accent);">
+            &#9675; Credentials
+          </p>
+          <div class="flex flex-wrap gap-2" data-reveal="stagger">
+            {credentials.map((cred) => (
+              <span
+                class="credential-tag font-mono text-xs px-3 py-1.5 rounded-full"
+              >
+                {cred}
+              </span>
+            ))}
+          </div>
+
+          <!-- The Pivot -->
+          <p class="font-mono text-xs uppercase tracking-[0.2em] mt-12 mb-6" style="color: var(--accent);">
+            &#9675; The Pivot
+          </p>
+          <blockquote class="pivot-quote mb-6" data-reveal="lines">
+            Same complexity. Same stakes.<br />
+            Different mission.
+          </blockquote>
+          <p data-reveal="fade" class="text-base leading-relaxed" style="color: var(--text-mid);">
+            After retiring from the Army, the transition into construction logistics was
+            immediate — the operational DNA is identical. Purchase orders are supply
+            requisitions. Submittals are mission briefings. Scheduling is movement planning.
+            But where military operations run on integrated C2 systems, construction teams
+            are still stitching together spreadsheets, email threads, and shared drives.
+            BuildLens exists because that gap shouldn't exist.
+          </p>
+        </div>
+
+        <!-- Photo Side -->
+        <div class="bio-photo" data-reveal="fade">
+          <div class="bio-photo-frame">
+            <Image
+              src={timImg}
+              alt="Tim Rollins, Founder and CEO of BuildLens"
+              width={800}
+              height={1067}
+              loading="lazy"
+              class="w-full h-full object-cover object-top"
+              data-parallax="0.1"
+            />
+          </div>
+          <p class="mt-4 text-center">
+            <span class="text-lg font-semibold" style="color: var(--text-lit);">Tim Rollins</span>
+            <br />
+            <span class="font-mono text-xs" style="color: var(--text-mid);">Founder & CEO</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 3: Stats Band -->
+  <section class="py-20 lg:py-32 px-6 lg:px-12" style="background: var(--bg-mid);">
+    <div class="max-w-7xl mx-auto">
+      <div class="stats-grid" data-reveal="stagger">
+        {stats.map((stat) => (
+          <div class="text-center">
+            <p
+              class="text-4xl lg:text-6xl font-extrabold"
+              style="color: var(--text-lit);"
+              data-reveal="counter"
+              data-target={stat.target}
+            >
+              {stat.value}
+            </p>
+            <p class="mt-2 font-mono text-xs uppercase tracking-[0.15em]" style="color: var(--text-mid);">
+              {stat.label}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 4: Values -->
+  <section class="py-32 lg:py-48 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <p
+        class="font-mono text-xs uppercase tracking-[0.2em] mb-6 text-center"
+        style="color: var(--accent);"
+      >
+        Our Approach
+      </p>
+      <h2 class="text-center mb-16 lg:mb-24" data-reveal="lines">
+        How We Build
+      </h2>
+
+      <div class="values-grid" data-reveal="stagger">
+        {values.map((val) => (
+          <div
+            class="value-card p-8 lg:p-10 rounded-2xl"
+          >
+            <h3 class="text-xl lg:text-2xl mb-4" style="color: var(--text-lit);">
+              {val.title}
+            </h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-mid);">
+              {val.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 5: CTA -->
+  <section class="py-32 lg:py-48 px-6 lg:px-12 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 data-reveal="lines">
+        Want to work with operators<br />
+        who've been in your boots?
+      </h2>
+      <div class="mt-10">
+        <a
+          href="/contact"
+          data-magnetic
+          data-cursor="action"
+          class="about-cta inline-flex items-center justify-center px-10 py-5 border rounded-full font-mono text-sm transition-colors min-w-[200px] min-h-[48px]"
+          style="color: var(--accent); border-color: var(--accent-border);"
+        >
+          Request a Demo
+        </a>
+      </div>
+      <p class="mt-6">
+        <a
+          href="/contact"
+          data-cursor="pointer"
+          class="font-mono text-sm transition-colors"
+          style="color: var(--text-mid);"
+        >
+          Or reach out directly &rarr;
+        </a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Hero */
+  .about-hero-heading {
+    line-height: 0.95;
+  }
+
+  .about-hero-rule {
+    width: 80px;
+    height: 2px;
+    background: var(--accent);
+  }
+
+  @media (min-width: 1024px) {
+    .about-hero-heading {
+      margin-left: -2rem;
+    }
+  }
+
+  /* Bio Grid */
+  .bio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+
+  @media (min-width: 1280px) {
+    .bio-grid {
+      grid-template-columns: 55fr 45fr;
+      gap: 4rem;
+    }
+
+    .bio-photo {
+      order: 2;
+    }
+
+    .bio-text {
+      order: 1;
+    }
+  }
+
+  /* Mobile: photo on top */
+  @media (max-width: 1279px) {
+    .bio-photo {
+      order: -1;
+    }
+  }
+
+  .bio-photo-frame {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    max-height: 600px;
+  }
+
+  @media (max-width: 1279px) and (min-width: 768px) {
+    .bio-photo-frame {
+      aspect-ratio: 16 / 9;
+      max-height: 400px;
+    }
+  }
+
+  @media (max-width: 767px) {
+    .bio-photo-frame {
+      aspect-ratio: 4 / 3;
+      max-height: 300px;
+    }
+  }
+
+  /* Credential tags */
+  .credential-tag {
+    background: var(--glass-06);
+    color: var(--text-mid);
+    border: 1px solid var(--border-subtle);
+  }
+
+  /* Pivot quote */
+  .pivot-quote {
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--text-lit);
+    padding-left: 1.5rem;
+    border-left: 3px solid var(--accent);
+  }
+
+  /* Stats Grid */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .stats-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .stats-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Values Grid */
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .values-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .values-grid > :last-child {
+      grid-column: 1 / -1;
+      max-width: 50%;
+      margin: 0 auto;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .values-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .values-grid > :last-child {
+      grid-column: auto;
+      max-width: none;
+      margin: 0;
+    }
+  }
+
+  .value-card {
+    background: var(--glass-03);
+    border: 1px solid var(--border-subtle);
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .value-card:hover {
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-glow);
+  }
+
+  /* CTA responsive */
+  @media (max-width: 767px) {
+    .about-cta {
+      width: 100%;
+    }
+  }
+</style>
