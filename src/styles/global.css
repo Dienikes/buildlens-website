@@ -104,7 +104,6 @@
 }
 
 html {
-  cursor: none;
   scroll-behavior: auto; /* Lenis handles scrolling */
   -webkit-text-size-adjust: 100%;
 }
@@ -119,16 +118,18 @@ body {
   overflow-x: hidden;
 }
 
-/* Cursor overrides */
-html,
-html * {
-  cursor: none;
-}
+/* Hide native cursor only on devices with a mouse */
+@media (hover: hover) {
+  html,
+  html * {
+    cursor: none;
+  }
 
-input,
-textarea,
-select {
-  cursor: text;
+  input,
+  textarea,
+  select {
+    cursor: text;
+  }
 }
 
 /* ============================================================

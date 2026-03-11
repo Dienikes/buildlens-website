@@ -84,8 +84,8 @@ export function init(): void {
   createElements();
   if (!outer || !inner) return;
 
-  moveOuterX = gsap.quickTo(outer, 'left', { duration: 0.5, ease: 'power3' });
-  moveOuterY = gsap.quickTo(outer, 'top', { duration: 0.5, ease: 'power3' });
+  moveOuterX = gsap.quickTo(outer, 'left', { duration: 0.3, ease: 'power3' });
+  moveOuterY = gsap.quickTo(outer, 'top', { duration: 0.3, ease: 'power3' });
   moveInnerX = gsap.quickTo(inner, 'left', { duration: 0.15, ease: 'power3' });
   moveInnerY = gsap.quickTo(inner, 'top', { duration: 0.15, ease: 'power3' });
 
