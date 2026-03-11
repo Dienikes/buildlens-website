@@ -7,16 +7,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import timImg from '../assets/images/tim-rollins.png';
 
-const credentials = [
-  'B.S. Global Security & Management (Honors)',
-  'SAP ERP Certified',
-  'Project Management Certified',
-  'OSHA 30',
-  'Active TS/SCI Clearance',
-  'Army Demolitions Instructor',
-  'K9 Handler (Explosives Detection)',
-];
-
 const stats = [
   { value: '20+', label: 'Years Active Duty', target: 20 },
   { value: '16+', label: 'Combat Missions Led', target: 16 },
@@ -84,20 +74,6 @@ const values = [
             depend on: the right materials, at the right place, at the right time, with
             zero margin for error.
           </p>
-
-          <!-- Credentials -->
-          <p class="font-mono text-xs uppercase tracking-[0.2em] mt-12 mb-6" style="color: var(--accent);">
-            &#9675; Credentials
-          </p>
-          <div class="flex flex-wrap gap-2" data-reveal="stagger">
-            {credentials.map((cred) => (
-              <span
-                class="credential-tag font-mono text-xs px-3 py-1.5 rounded-full"
-              >
-                {cred}
-              </span>
-            ))}
-          </div>
 
           <!-- The Pivot -->
           <p class="font-mono text-xs uppercase tracking-[0.2em] mt-12 mb-6" style="color: var(--accent);">
@@ -228,6 +204,7 @@ const values = [
 <style>
   /* Hero */
   .about-hero-heading {
+    font-size: clamp(2.5rem, 7vw, 7rem);
     line-height: 0.95;
   }
 
@@ -235,12 +212,6 @@ const values = [
     width: 80px;
     height: 2px;
     background: var(--accent);
-  }
-
-  @media (min-width: 1024px) {
-    .about-hero-heading {
-      margin-left: -2rem;
-    }
   }
 
   /* Bio Grid */
@@ -291,13 +262,6 @@ const values = [
       aspect-ratio: 4 / 3;
       max-height: 300px;
     }
-  }
-
-  /* Credential tags */
-  .credential-tag {
-    background: var(--glass-06);
-    color: var(--text-mid);
-    border: 1px solid var(--border-subtle);
   }
 
   /* Pivot quote */
