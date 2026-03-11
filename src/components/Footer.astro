@@ -1,0 +1,164 @@
+---
+/**
+ * Footer — Full-width dark band with logo, nav links, and contact info.
+ * Uses buildlens-full.svg (monogram + wordmark + tagline) with lens flare enabled.
+ */
+import fullLogoRaw from '../assets/logo/buildlens-full.svg?raw';
+
+const links = [
+  { href: '/platform', label: 'Platform' },
+  { href: '/about', label: 'About' },
+  { href: '/pricing', label: 'Pricing' },
+  { href: '/contact', label: 'Contact' },
+];
+
+const currentYear = new Date().getFullYear();
+---
+
+<footer class="footer-section" role="contentinfo">
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <!-- Top: Logo + Nav + Contact in a 3-column grid -->
+    <div class="footer-grid">
+      <!-- Logo -->
+      <div class="footer-logo" data-cursor="pointer">
+        <a href="/" aria-label="BuildLens home">
+          <div class="footer-logo-svg" set:html={fullLogoRaw} />
+        </a>
+      </div>
+
+      <!-- Nav Links -->
+      <nav aria-label="Footer navigation">
+        <p class="footer-label">Navigation</p>
+        <ul class="footer-links">
+          {links.map((link) => (
+            <li>
+              <a
+                href={link.href}
+                class="footer-link"
+                data-cursor="pointer"
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </nav>
+
+      <!-- Contact Info -->
+      <div>
+        <p class="footer-label">Contact</p>
+        <ul class="footer-links">
+          <li>
+            <a
+              href="mailto:info@buildlens.com"
+              class="footer-link"
+              data-cursor="pointer"
+            >
+              info@buildlens.com
+            </a>
+          </li>
+          <li>
+            <a
+              href="tel:+12565551234"
+              class="footer-link"
+              data-cursor="pointer"
+            >
+              (256) 555-1234
+            </a>
+          </li>
+          <li>
+            <span class="footer-link" style="cursor: default;">
+              Madison, AL
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="footer-divider"></div>
+
+    <!-- Bottom: Copyright -->
+    <div class="footer-bottom">
+      <p class="font-mono text-xs" style="color: var(--text-shadow);">
+        &copy; {currentYear} BuildLens. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-section {
+    padding: 4rem 0 2rem;
+    background: var(--bg-abyss);
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 3rem;
+    }
+  }
+
+  .footer-logo-svg {
+    width: 180px;
+    color: var(--text-lit);
+  }
+
+  .footer-logo-svg :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+
+  .footer-label {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-dim);
+    margin-bottom: 1rem;
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer-link {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .footer-link:hover {
+    color: var(--text-lit);
+  }
+
+  .footer-divider {
+    height: 1px;
+    background: var(--border-subtle);
+    margin: 2.5rem 0 1.5rem;
+  }
+
+  .footer-bottom {
+    text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .footer-bottom {
+      text-align: left;
+    }
+  }
+</style>
