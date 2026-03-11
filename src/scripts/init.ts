@@ -9,6 +9,7 @@ import * as reveal from './reveal';
 import * as parallax from './parallax';
 import * as marquee from './marquee';
 import * as nav from './nav';
+import * as showcase from './showcase';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let isReducedMotion = reducedMotionQuery.matches;
@@ -31,11 +32,13 @@ function initAll(): void {
   reveal.init();
   parallax.init();
   marquee.init();
+  showcase.init();
   nav.init();
 }
 
 function destroyAll(): void {
   nav.destroy();
+  showcase.destroy();
   marquee.destroy();
   parallax.destroy();
   reveal.destroy();

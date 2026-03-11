@@ -1,43 +1,50 @@
 ---
 /**
  * Hero — Above-the-fold intro section.
- * No data-reveal attributes: the splash screen provides the entrance animation.
+ * Heading bleeds off left edge on desktop per spec wireframe.
+ * data-reveal="lines" on heading, data-reveal="fade" on subtext.
  */
 ---
 
-<section class="min-h-screen flex flex-col justify-center px-6 lg:px-12 relative">
-  <div class="max-w-7xl mx-auto w-full">
-    <h1>
-      Construction logistics.<br />
-      <span style="color: var(--accent);">One source of truth.</span>
+<section class="hero-section min-h-screen flex flex-col justify-center relative">
+  <div class="hero-content">
+    <h1 data-reveal="lines" class="hero-heading">
+      Construction<br />
+      logistics. One<br />
+      <span style="color: var(--accent);">source of truth.</span>
     </h1>
 
-    <p
-      class="mt-8 lg:mt-10 text-lg lg:text-xl max-w-2xl lg:ml-auto"
-      style="color: var(--text-mid);"
-    >
-      BuildLens consolidates purchase orders, submittals, scheduling, and field
-      coordination into a single operational hub. Built by operators, for operators.
-    </p>
-
-    <div class="mt-12 lg:mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:ml-auto lg:max-w-2xl">
-      <a
-        href="/contact"
-        data-magnetic
-        data-cursor="action"
-        class="inline-flex items-center justify-center px-8 py-4 border rounded-full font-mono text-sm transition-colors min-w-[180px] min-h-[44px]"
-        style="color: var(--accent); border-color: var(--accent-border);"
-      >
-        Request a Demo
-      </a>
-      <a
-        href="#value"
-        data-cursor="pointer"
-        class="font-mono text-sm transition-colors"
+    <div class="hero-right">
+      <p
+        data-reveal="fade"
+        class="text-lg lg:text-xl"
         style="color: var(--text-mid);"
       >
-        Learn more &darr;
-      </a>
+        BuildLens consolidates purchase orders, submittals, scheduling, and field
+        coordination into a single operational hub — powered by an AI co-pilot that
+        reads your project data without it ever leaving the network.
+        Built by operators, for operators.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+        <a
+          href="/contact"
+          data-magnetic
+          data-cursor="action"
+          class="inline-flex items-center justify-center px-8 py-4 border rounded-full font-mono text-sm transition-colors min-w-[180px] min-h-[44px]"
+          style="color: var(--accent); border-color: var(--accent-border);"
+        >
+          Request a Demo
+        </a>
+        <a
+          href="#value"
+          data-cursor="pointer"
+          class="font-mono text-sm transition-colors"
+          style="color: var(--text-mid);"
+        >
+          Learn more &darr;
+        </a>
+      </div>
     </div>
   </div>
 
@@ -49,3 +56,45 @@
     <div class="w-px h-8 animate-pulse-down" style="background: var(--accent-dim);"></div>
   </div>
 </section>
+
+<style>
+  .hero-section {
+    padding: 0 1.5rem;
+  }
+
+  .hero-content {
+    max-width: 90rem;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .hero-heading {
+    line-height: 0.95;
+  }
+
+  .hero-right {
+    margin-top: 2.5rem;
+    max-width: 32rem;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-section {
+      padding: 0 3rem;
+    }
+
+    .hero-heading {
+      margin-left: -3rem;
+    }
+
+    .hero-right {
+      margin-left: auto;
+      margin-top: 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .hero-heading {
+      margin-left: -5rem;
+    }
+  }
+</style>

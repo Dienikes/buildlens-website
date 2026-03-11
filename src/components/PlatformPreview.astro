@@ -1,17 +1,72 @@
 ---
 /**
- * PlatformPreview — Product screenshots in browser-chrome frames.
+ * PlatformPreview — 3D perspective-shift pinned carousel.
+ * Uses data-showcase attribute wired to showcase.ts for GSAP ScrollTrigger.
+ * Browser chrome frames with colored dots per spec.
  */
 import { Image } from 'astro:assets';
 import ganttImg from '../assets/images/screenshot-gantt.png';
-import dashboardImg from '../assets/images/screenshot-dashboard.png';
+import dashboardImg from '../assets/images/screenshot-field-ops-dashboard.png';
 import pipelineImg from '../assets/images/screenshot-pipeline.png';
-import rfiImg from '../assets/images/screenshot-rfi.png';
+import executiveImg from '../assets/images/screenshot-executive.png';
+import weeklyImg from '../assets/images/screenshot-weekly-report.png';
+import dailyImg from '../assets/images/screenshot-daily-report.png';
 
-const thumbnails = [
-  { src: dashboardImg, alt: 'BuildLens project dashboard', title: 'Project Dashboard', desc: 'Budget, schedule, and team activity at a glance.' },
-  { src: pipelineImg, alt: 'BuildLens pursuit pipeline board', title: 'Pursuit Pipeline', desc: 'Track opportunities from identification through proposal.' },
-  { src: rfiImg, alt: 'BuildLens RFI and submittal tracker', title: 'RFI Tracker', desc: 'Manage requests for information with full audit trails.' },
+const screenshots = [
+  {
+    src: ganttImg,
+    alt: 'BuildLens Gantt schedule view with critical path highlighting',
+    title: 'Master Schedule',
+    desc: 'Gantt charts that sync with procurement. Every delay is visible before it cascades.',
+    url: 'app.buildlens.com/schedule',
+    width: 1734,
+    height: 1209,
+  },
+  {
+    src: dashboardImg,
+    alt: 'BuildLens Field Operations Manager with AI Co-Pilot',
+    title: 'Field Operations',
+    desc: 'Real-time field coordination with AI-powered recommendations across every active jobsite.',
+    url: 'app.buildlens.com/field-ops',
+    width: 2537,
+    height: 1345,
+  },
+  {
+    src: pipelineImg,
+    alt: 'BuildLens pursuit pipeline and opportunity tracking board',
+    title: 'Pursuit Pipeline',
+    desc: 'Track opportunities from lead through proposal with win/loss analytics.',
+    url: 'app.buildlens.com/pipeline',
+    width: 2511,
+    height: 1075,
+  },
+  {
+    src: executiveImg,
+    alt: 'BuildLens executive dashboard with portfolio KPIs',
+    title: 'Executive Dashboard',
+    desc: 'Portfolio-level health scoring with budget burn rate, schedule variance, and open issues.',
+    url: 'app.buildlens.com/executive',
+    width: 1717,
+    height: 1147,
+  },
+  {
+    src: weeklyImg,
+    alt: 'BuildLens weekly project status report',
+    title: 'Weekly Report',
+    desc: 'Auto-generated status reports with schedule narrative and budget summaries.',
+    url: 'app.buildlens.com/reports/weekly',
+    width: 2507,
+    height: 1118,
+  },
+  {
+    src: dailyImg,
+    alt: 'BuildLens daily field report with weather and crew logs',
+    title: 'Daily Report',
+    desc: 'Field logs with weather, crew counts, equipment, and safety observations.',
+    url: 'app.buildlens.com/reports/daily',
+    width: 2518,
+    height: 1332,
+  },
 ];
 ---
 
@@ -28,72 +83,100 @@ const thumbnails = [
       See it in action.
     </h2>
 
-    <!-- Hero screenshot: Gantt view -->
-    <div data-reveal="fade">
-      <div class="browser-frame">
-        <div class="browser-bar">
-          <span class="browser-dot"></span>
-          <span class="browser-dot"></span>
-          <span class="browser-dot"></span>
-          <div class="browser-url">
-            <span class="font-mono text-xs" style="color: var(--text-shadow);">app.buildlens.com/schedule</span>
+    <!-- 3D Pinned Carousel -->
+    <div data-showcase class="showcase-container">
+      <div class="showcase-viewport" style="perspective: 1200px;">
+        {screenshots.map((shot, i) => (
+          <div class={`showcase-card ${i === 0 ? 'showcase-card-active' : ''}`}>
+            <div class="browser-frame">
+              <div class="browser-bar">
+                <span class="browser-dot" style="background: #ff5f57;"></span>
+                <span class="browser-dot" style="background: #febc2e;"></span>
+                <span class="browser-dot" style="background: #28c840;"></span>
+                <div class="browser-url">
+                  <span class="font-mono text-xs" style="color: var(--text-shadow);">{shot.url}</span>
+                </div>
+              </div>
+              <div class="overflow-hidden">
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={shot.width}
+                  height={shot.height}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  class="w-full h-auto block"
+                />
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="overflow-hidden">
-          <Image
-            src={ganttImg}
-            alt="BuildLens schedule and Gantt chart view"
-            width={1360}
-            height={793}
-            loading="lazy"
-            class="w-full h-auto block"
-            data-parallax="0.1"
-          />
-        </div>
+        ))}
       </div>
 
-      <div class="mt-6 text-center">
-        <h3 class="text-xl lg:text-2xl" style="color: var(--text-lit);">
-          Master Your Schedule
-        </h3>
-        <p class="mt-2 text-sm" style="color: var(--text-mid);">
-          Gantt charts that sync directly with procurement. Every delay is visible before it cascades.
-        </p>
+      <!-- Captions -->
+      <div class="showcase-captions mt-8">
+        {screenshots.map((shot, i) => (
+          <div class={`showcase-caption ${i === 0 ? 'showcase-caption-active' : ''}`}>
+            <h3 class="text-xl lg:text-2xl" style="color: var(--text-lit);">
+              {shot.title}
+            </h3>
+            <p class="mt-2 text-sm" style="color: var(--text-mid);">
+              {shot.desc}
+            </p>
+          </div>
+        ))}
+      </div>
+
+      <!-- Progress dots -->
+      <div class="showcase-dots mt-6 flex justify-center gap-2">
+        {screenshots.map((_, i) => (
+          <button
+            class={`showcase-dot ${i === 0 ? 'active' : ''}`}
+            aria-label={`View screenshot ${i + 1}`}
+          />
+        ))}
+      </div>
+
+      <!-- Progress bar -->
+      <div class="showcase-progress mt-4">
+        <div class="showcase-progress-fill"></div>
       </div>
     </div>
 
-    <!-- Thumbnail grid -->
-    <div class="grid md:grid-cols-3 gap-6 mt-16 lg:mt-24" data-reveal="stagger">
-      {thumbnails.map((thumb) => (
-        <div>
-          <div class="browser-frame browser-frame-sm">
-            <div class="browser-bar browser-bar-sm">
-              <span class="browser-dot browser-dot-sm"></span>
-              <span class="browser-dot browser-dot-sm"></span>
-              <span class="browser-dot browser-dot-sm"></span>
+    <!-- Reduced motion fallback: stacked grid -->
+    <div class="showcase-fallback hidden">
+      <div class="grid md:grid-cols-2 gap-8">
+        {screenshots.map((shot) => (
+          <div data-reveal="fade">
+            <div class="browser-frame browser-frame-sm">
+              <div class="browser-bar browser-bar-sm">
+                <span class="browser-dot browser-dot-sm" style="background: #ff5f57;"></span>
+                <span class="browser-dot browser-dot-sm" style="background: #febc2e;"></span>
+                <span class="browser-dot browser-dot-sm" style="background: #28c840;"></span>
+              </div>
+              <div class="overflow-hidden">
+                <Image
+                  src={shot.src}
+                  alt={shot.alt}
+                  width={shot.width}
+                  height={shot.height}
+                  loading="lazy"
+                  class="w-full h-auto block"
+                />
+              </div>
             </div>
-            <div class="overflow-hidden">
-              <Image
-                src={thumb.src}
-                alt={thumb.alt}
-                width={1360}
-                height={793}
-                loading="lazy"
-                class="w-full h-auto block"
-              />
+            <div class="mt-3">
+              <h4 class="text-sm font-mono" style="color: var(--text-lit);">{shot.title}</h4>
+              <p class="mt-1 text-xs" style="color: var(--text-mid);">{shot.desc}</p>
             </div>
           </div>
-          <div class="mt-4">
-            <h4 class="text-sm font-mono" style="color: var(--text-lit);">{thumb.title}</h4>
-            <p class="mt-1 text-xs" style="color: var(--text-mid);">{thumb.desc}</p>
-          </div>
-        </div>
-      ))}
+        ))}
+      </div>
     </div>
   </div>
 </section>
 
 <style>
+  /* Browser chrome */
   .browser-frame {
     border-radius: 0.75rem;
     overflow: hidden;
@@ -111,7 +194,7 @@ const thumbnails = [
     align-items: center;
     gap: 0.5rem;
     padding: 0.75rem 1rem;
-    background: var(--glass-06);
+    background: var(--bg-shelf);
     border-bottom: 1px solid var(--border-subtle);
   }
 
@@ -124,7 +207,6 @@ const thumbnails = [
     width: 10px;
     height: 10px;
     border-radius: 50%;
-    background: var(--glass-10);
   }
 
   .browser-dot-sm {
@@ -137,5 +219,77 @@ const thumbnails = [
     padding: 0.25rem 0.75rem;
     border-radius: 0.375rem;
     background: var(--glass-03);
+  }
+
+  /* Carousel container */
+  .showcase-container {
+    position: relative;
+  }
+
+  .showcase-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+  }
+
+  .showcase-card {
+    will-change: transform, opacity, filter;
+  }
+
+  /* Captions */
+  .showcase-captions {
+    position: relative;
+    min-height: 4rem;
+    text-align: center;
+  }
+
+  .showcase-caption {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /* Progress dots */
+  .showcase-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--glass-10);
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    transition: background 0.3s, transform 0.3s;
+  }
+
+  .showcase-dot.active {
+    background: var(--accent);
+    transform: scale(1.3);
+  }
+
+  /* Progress bar */
+  .showcase-progress {
+    height: 2px;
+    background: var(--glass-06);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+
+  .showcase-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--accent);
+    transition: width 0.05s linear;
+  }
+
+  /* Reduced motion fallback */
+  @media (prefers-reduced-motion: reduce) {
+    .showcase-container {
+      display: none;
+    }
+    .showcase-fallback {
+      display: block !important;
+    }
   }
 </style>
