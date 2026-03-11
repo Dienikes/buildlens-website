@@ -1,76 +1,22 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import Marquee from '../components/Marquee.astro';
+import ValueProp from '../components/ValueProp.astro';
+import ModuleGrid from '../components/ModuleGrid.astro';
+import Stats from '../components/Stats.astro';
+import PlatformPreview from '../components/PlatformPreview.astro';
+import Testimonial from '../components/Testimonial.astro';
+import CTASection from '../components/CTASection.astro';
 ---
 
 <BaseLayout title="BuildLens — Construction Logistics Platform">
-  <!-- Hero Section -->
-  <section class="min-h-screen flex flex-col items-center justify-center px-6">
-    <h1 class="text-center max-w-5xl">
-      Construction logistics.<br />
-      <span style="color: var(--accent);">One source of truth.</span>
-    </h1>
-    <p class="mt-8 text-center text-lg max-w-2xl" style="color: var(--text-mid);">
-      BuildLens consolidates purchase orders, submittals, scheduling, and field
-      coordination into a single operational hub. Built by operators, for operators.
-    </p>
-
-    <!-- Magnetic button test -->
-    <a
-      href="#features"
-      data-magnetic
-      data-cursor="action"
-      class="mt-12 inline-flex items-center justify-center px-8 py-4 border rounded-full font-mono text-sm transition-colors min-w-[180px] min-h-[44px]"
-      style="color: var(--accent); border-color: var(--accent-border);"
-    >
-      Explore Platform
-    </a>
-
-    <p class="mt-12 font-mono text-sm" style="color: var(--accent-dim);">
-      Phase 2 — Interaction Utilities
-    </p>
-  </section>
-
-  <!-- Features Section (scroll reveal test) -->
-  <section id="features" class="min-h-screen flex flex-col items-center justify-center px-6 py-24">
-    <h2 class="text-center mb-16" data-reveal="fade">Built for the field</h2>
-
-    <div class="grid gap-8 max-w-4xl w-full md:grid-cols-3" data-reveal="stagger">
-      <div class="p-8 rounded-2xl" style="background: var(--glass-03); border: 1px solid var(--border-subtle);">
-        <p class="font-mono text-sm mb-2" style="color: var(--accent-dim);">01</p>
-        <h3 class="text-xl mb-3" style="color: var(--text-lit);">Purchase Orders</h3>
-        <p style="color: var(--text-mid);">Track every line item from requisition to delivery.</p>
-      </div>
-      <div class="p-8 rounded-2xl" style="background: var(--glass-03); border: 1px solid var(--border-subtle);">
-        <p class="font-mono text-sm mb-2" style="color: var(--accent-dim);">02</p>
-        <h3 class="text-xl mb-3" style="color: var(--text-lit);">Submittals</h3>
-        <p style="color: var(--text-mid);">Automate routing and track approval status in real time.</p>
-      </div>
-      <div class="p-8 rounded-2xl" style="background: var(--glass-03); border: 1px solid var(--border-subtle);">
-        <p class="font-mono text-sm mb-2" style="color: var(--accent-dim);">03</p>
-        <h3 class="text-xl mb-3" style="color: var(--text-lit);">Scheduling</h3>
-        <p style="color: var(--text-mid);">Gantt charts that sync with your procurement pipeline.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Counter test section -->
-  <section class="min-h-[50vh] flex flex-col items-center justify-center px-6 py-24">
-    <div class="grid gap-12 text-center md:grid-cols-3" data-reveal="stagger">
-      <div>
-        <p class="text-5xl font-bold" style="color: var(--text-lit);" data-reveal="counter" data-target="500">500</p>
-        <p class="mt-2 font-mono text-sm" style="color: var(--accent-dim);">Projects Managed</p>
-      </div>
-      <div>
-        <p class="text-5xl font-bold" style="color: var(--text-lit);" data-reveal="counter" data-target="98">98</p>
-        <p class="mt-2 font-mono text-sm" style="color: var(--accent-dim);">On-Time Delivery %</p>
-      </div>
-      <div>
-        <p class="text-5xl font-bold" style="color: var(--text-lit);" data-reveal="counter" data-target="12">12</p>
-        <p class="mt-2 font-mono text-sm" style="color: var(--accent-dim);">Team Members</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- Spacer for scroll testing -->
-  <section class="h-[50vh]"></section>
+  <Hero />
+  <Marquee />
+  <ValueProp />
+  <ModuleGrid />
+  <Stats />
+  <PlatformPreview />
+  <Testimonial />
+  <CTASection />
 </BaseLayout>
