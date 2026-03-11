@@ -1,9 +1,459 @@
 ---
+/**
+ * Platform Page — Deep-dive into all 12 modules + AI Co-Pilot.
+ * Screenshot gallery with browser chrome frames, then module sections.
+ */
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import dashboardImg from '../assets/images/screenshot-field-ops-dashboard.png';
+import ganttImg from '../assets/images/screenshot-gantt.png';
+import pipelineImg from '../assets/images/screenshot-pipeline.png';
+import executiveImg from '../assets/images/screenshot-executive.png';
+
+const gallery = [
+  {
+    src: ganttImg,
+    alt: 'BuildLens Gantt schedule view with critical path highlighting',
+    title: 'Master Your Schedule',
+    desc: 'Gantt charts with dependency tracking, critical path identification, and two-week lookahead generation — synced with procurement so every delay is visible before it cascades.',
+    url: 'app.buildlens.com/schedule',
+    width: 1734,
+    height: 1209,
+  },
+  {
+    src: pipelineImg,
+    alt: 'BuildLens pursuit pipeline and opportunity tracking board',
+    title: 'Track Every Opportunity',
+    desc: 'Kanban-style pipeline from lead through proposal with win/loss analytics and automated follow-up scheduling.',
+    url: 'app.buildlens.com/pipeline',
+    width: 2511,
+    height: 1075,
+  },
+  {
+    src: executiveImg,
+    alt: 'BuildLens executive dashboard with portfolio KPIs',
+    title: 'Executive Visibility',
+    desc: 'Portfolio-level health scoring with S-curve analysis, budget burn rate, schedule variance, and open issues — all in real time.',
+    url: 'app.buildlens.com/executive',
+    width: 1717,
+    height: 1147,
+  },
+];
+
+const modules = [
+  {
+    number: '01',
+    slug: 'dashboard',
+    title: 'Project Dashboard',
+    lead: 'Your central command for every active project.',
+    capabilities: [
+      'Portfolio-level view of all active, pending, and completed projects',
+      'Project health scoring based on schedule variance, budget burn rate, and open issues',
+      'Customizable status indicators and quick-access module links',
+      'Activity feed showing recent actions across the project team',
+      'Milestone tracking with percent-complete rollups',
+    ],
+  },
+  {
+    number: '02',
+    slug: 'purchase-orders',
+    title: 'Purchase Order Management',
+    lead: 'End-to-end PO lifecycle from creation through receipt.',
+    capabilities: [
+      'PO creation with line-item detail, spec references, and delivery dates',
+      'Approval routing with configurable thresholds',
+      'Status tracking from Draft through Complete with full audit trail',
+      'Change order management tied to original PO with variance tracking',
+      'Automatic budget impact calculations and PDF generation',
+    ],
+  },
+  {
+    number: '03',
+    slug: 'submittals',
+    title: 'Submittal Tracking',
+    lead: 'Manage the full submittal workflow through every review cycle.',
+    capabilities: [
+      'Submittal log with unique numbering and document version control',
+      'Multi-party review routing: architect, engineer, owner, GC',
+      'Automated reminders for overdue reviews',
+      'Comment threading per submittal revision',
+      'Submittal register export for GC and owner reporting',
+    ],
+  },
+  {
+    number: '04',
+    slug: 'sourcing',
+    title: 'Equipment & Material Sourcing',
+    lead: 'Locate, compare, and procure — all in one place.',
+    capabilities: [
+      'Vendor quote comparison with side-by-side pricing and lead times',
+      'Preferred vendor flagging and historical pricing data',
+      'Substitute material recommendations with spec compliance notes',
+      'Rental vs. purchase analysis for equipment decisions',
+      'Integration with BOMs for automatic quantity pull',
+    ],
+  },
+  {
+    number: '05',
+    slug: 'subcontractors',
+    title: 'Subcontractor Management',
+    lead: 'Central registry with prequalification, contracts, and performance tracking.',
+    capabilities: [
+      'Trade classifications, certifications, and insurance expiration tracking',
+      'Prequalification workflow with document collection and scoring',
+      'Performance scoring: schedule adherence, quality, safety, responsiveness',
+      'Lien waiver tracking and collection',
+      'Capacity and availability tracking across active projects',
+    ],
+  },
+  {
+    number: '06',
+    slug: 'bom',
+    title: 'Bills of Materials',
+    lead: 'Structured takeoffs that feed directly into POs and budgets.',
+    capabilities: [
+      'BOM creation by project phase, area, or system',
+      'BOM templates for recurring project types',
+      'One-click BOM-to-PO conversion',
+      'Material status tracking: Not Ordered through Installed',
+      'Waste factor and contingency calculations',
+    ],
+  },
+  {
+    number: '07',
+    slug: 'scheduling',
+    title: 'Project Scheduling',
+    lead: 'Timeline management built for construction-specific needs.',
+    capabilities: [
+      'Gantt charts with task dependencies and critical path highlighting',
+      'Resource assignment per task: crews, equipment, subcontractors',
+      'Baseline schedule capture with variance tracking',
+      'Weather delay and force majeure logging',
+      'Two-week and three-week lookahead generation',
+    ],
+  },
+  {
+    number: '08',
+    slug: 'crm',
+    title: 'Client & CRM',
+    lead: 'The relationship layer connecting people to projects.',
+    capabilities: [
+      'Client database with company info, contacts, and project history',
+      'Prospect pipeline with stage tracking: Lead through Won/Lost',
+      'Proposal and bid tracking with win/loss analysis',
+      'Communication log tied to client and project records',
+      'Automated follow-up reminders and task generation',
+    ],
+  },
+  {
+    number: '09',
+    slug: 'budget',
+    title: 'Budget & Cost Tracking',
+    lead: 'Real-time financial visibility across every project.',
+    capabilities: [
+      'Budget setup by CSI division, phase, or custom cost codes',
+      'Committed cost tracking from POs and subcontracts',
+      'Budget vs. actual variance reporting with trend analysis',
+      'Cost-to-complete forecasting and cash flow projections',
+      'Change order impact on budget with automatic adjustments',
+    ],
+  },
+  {
+    number: '10',
+    slug: 'documents',
+    title: 'Document Management',
+    lead: 'Centralized storage with construction-specific organization.',
+    capabilities: [
+      'Project-based folder structure: plans, specs, submittals, RFIs, contracts, photos',
+      'Version control with check-in/check-out to prevent overwrites',
+      'File tagging, metadata search, and role-based access permissions',
+      'Drawing set management with revision tracking',
+      'Transmittal generation for formal document distribution',
+    ],
+  },
+  {
+    number: '11',
+    slug: 'reporting',
+    title: 'Reporting & Analytics',
+    lead: 'Configurable reports for field teams and executives alike.',
+    capabilities: [
+      'Pre-built templates: project status, budget summary, submittal log, PO register',
+      'Custom report builder with drag-and-drop field selection',
+      'Dashboard widgets with real-time KPIs',
+      'Scheduled report delivery via email: daily, weekly, monthly',
+      'Role-based report access and trend analysis across portfolio',
+    ],
+  },
+  {
+    number: '12',
+    slug: 'automation',
+    title: 'Workflow Automation',
+    lead: 'Event-driven alerts that keep the team informed automatically.',
+    capabilities: [
+      'Configurable notification rules with threshold triggers',
+      'Automated status transitions based on events',
+      'Task generation from events: new submittal creates review task',
+      'Escalation rules for overdue items',
+      'Daily digest emails and webhook support for external tools',
+    ],
+  },
+];
 ---
 
-<BaseLayout title="Platform | BuildLens — Construction Logistics Platform">
-  <section class="min-h-screen flex items-center justify-center px-6">
-    <h1>Platform</h1>
+<BaseLayout
+  title="Platform | BuildLens — Construction Logistics Platform"
+  description="Explore all 12 BuildLens modules: dashboards, purchase orders, submittals, scheduling, budgets, and more — plus an AI co-pilot that reads your project data."
+>
+  <!-- Hero -->
+  <section class="pt-40 pb-20 lg:pt-48 lg:pb-28 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <p
+        class="font-mono text-xs uppercase tracking-[0.2em] mb-6"
+        style="color: var(--accent);"
+      >
+        The Platform
+      </p>
+      <h1 data-reveal="lines">
+        Built for how construction<br />
+        actually works.
+      </h1>
+      <p
+        data-reveal="fade"
+        class="mt-8 text-lg lg:text-xl max-w-2xl"
+        style="color: var(--text-mid);"
+      >
+        12 integrated modules. One data layer. Every change propagates everywhere it
+        matters — so your team stops double-entering and starts building.
+      </p>
+    </div>
+  </section>
+
+  <!-- Hero Screenshot — full-width Field Ops Dashboard -->
+  <section class="pb-32 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto" data-reveal="fade">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <span class="browser-dot" style="background: #ff5f57;"></span>
+          <span class="browser-dot" style="background: #febc2e;"></span>
+          <span class="browser-dot" style="background: #28c840;"></span>
+          <div class="browser-url">
+            <span class="font-mono text-xs" style="color: var(--text-shadow);">app.buildlens.com/field-ops</span>
+          </div>
+        </div>
+        <div class="overflow-hidden">
+          <Image
+            src={dashboardImg}
+            alt="BuildLens Field Operations Manager with AI Co-Pilot"
+            width={2537}
+            height={1345}
+            loading="eager"
+            class="w-full h-auto block"
+            data-parallax="0.1"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Alternating Screenshot Gallery -->
+  {gallery.map((shot, i) => (
+    <section class="py-20 lg:py-32 px-6 lg:px-12">
+      <div class={`max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center ${i % 2 === 1 ? 'gallery-reverse' : ''}`}>
+        <div class={i % 2 === 1 ? 'lg:order-2' : ''}>
+          <h2 data-reveal="lines" class="text-3xl lg:text-4xl" style="color: var(--text-lit);">
+            {shot.title}
+          </h2>
+          <p data-reveal="fade" class="mt-6 text-lg" style="color: var(--text-mid);">
+            {shot.desc}
+          </p>
+        </div>
+        <div class={i % 2 === 1 ? 'lg:order-1' : ''} data-reveal="fade">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <span class="browser-dot" style="background: #ff5f57;"></span>
+              <span class="browser-dot" style="background: #febc2e;"></span>
+              <span class="browser-dot" style="background: #28c840;"></span>
+              <div class="browser-url">
+                <span class="font-mono text-xs" style="color: var(--text-shadow);">{shot.url}</span>
+              </div>
+            </div>
+            <div class="overflow-hidden">
+              <Image
+                src={shot.src}
+                alt={shot.alt}
+                width={shot.width}
+                height={shot.height}
+                loading="lazy"
+                class="w-full h-auto block"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- Divider -->
+  <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <div style="height: 1px; background: var(--border-subtle);"></div>
+  </div>
+
+  <!-- AI Co-Pilot — Featured Section -->
+  <section id="ai-copilot" class="py-32 lg:py-48 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="ai-section p-10 lg:p-16 rounded-2xl" data-reveal="fade">
+        <p class="font-mono text-xs uppercase tracking-[0.2em] mb-4" style="color: var(--accent);">
+          AI CO-PILOT
+        </p>
+        <span class="inline-block font-mono text-xs px-3 py-1 rounded-full mb-8" style="background: var(--glass-06); color: var(--accent); border: 1px solid var(--accent-border);">
+          Network-Isolated
+        </span>
+        <h2 data-reveal="lines" class="text-3xl lg:text-5xl mb-6" style="color: var(--text-lit);">
+          Ask your project anything.
+        </h2>
+        <p class="text-lg lg:text-xl max-w-3xl" style="color: var(--text-mid);">
+          AI that reads your schedule, budget, RFIs, submittals, inspections, change orders,
+          and weather data — without your data ever leaving the network. Contextual answers
+          in seconds, not hours of digging through spreadsheets.
+        </p>
+        <ul class="mt-8 grid sm:grid-cols-2 gap-4 max-w-3xl">
+          <li class="flex items-start gap-3">
+            <span style="color: var(--accent);">&#10003;</span>
+            <span class="text-sm" style="color: var(--text-mid);">Reads every module in your project</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span style="color: var(--accent);">&#10003;</span>
+            <span class="text-sm" style="color: var(--text-mid);">Zero data leaves your network</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span style="color: var(--accent);">&#10003;</span>
+            <span class="text-sm" style="color: var(--text-mid);">Natural language project queries</span>
+          </li>
+          <li class="flex items-start gap-3">
+            <span style="color: var(--accent);">&#10003;</span>
+            <span class="text-sm" style="color: var(--text-mid);">Risk summaries and draft notices</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Module Deep-Dive Sections -->
+  <section class="pb-16 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto text-center mb-20">
+      <p
+        class="font-mono text-xs uppercase tracking-[0.2em] mb-6"
+        style="color: var(--accent);"
+      >
+        All Modules
+      </p>
+      <h2 data-reveal="lines">
+        Everything your team needs.<br />
+        Nothing it doesn't.
+      </h2>
+    </div>
+  </section>
+
+  {modules.map((mod, i) => (
+    <section id={mod.slug} class="py-16 lg:py-24 px-6 lg:px-12">
+      <div class={`max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-start ${i % 2 === 1 ? '' : ''}`}>
+        <div class={i % 2 === 1 ? 'lg:order-2' : ''}>
+          <p class="font-mono text-xs mb-3" style="color: var(--accent-dim);" data-reveal="fade">
+            {mod.number}
+          </p>
+          <h3
+            data-reveal="lines"
+            class="text-2xl lg:text-4xl mb-4"
+            style="color: var(--text-lit);"
+          >
+            {mod.title}
+          </h3>
+          <p data-reveal="fade" class="text-lg mb-8" style="color: var(--text-mid);">
+            {mod.lead}
+          </p>
+        </div>
+        <div class={i % 2 === 1 ? 'lg:order-1' : ''} data-reveal="fade">
+          <ul class="space-y-3">
+            {mod.capabilities.map((cap) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0" style="background: var(--accent);"></span>
+                <span class="text-sm leading-relaxed" style="color: var(--text-mid);">{cap}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </section>
+  ))}
+
+  <!-- CTA -->
+  <section class="py-32 lg:py-48 px-6 lg:px-12 text-center">
+    <div class="max-w-4xl mx-auto">
+      <h2 data-reveal="lines">
+        Ready to streamline<br />
+        your operations?
+      </h2>
+      <div class="mt-10">
+        <a
+          href="/contact"
+          data-magnetic
+          data-cursor="action"
+          class="inline-flex items-center justify-center px-10 py-5 border rounded-full font-mono text-sm transition-colors min-w-[200px] min-h-[48px]"
+          style="color: var(--accent); border-color: var(--accent-border);"
+        >
+          Request a Demo
+        </a>
+      </div>
+      <p class="mt-6">
+        <a
+          href="/contact"
+          data-cursor="pointer"
+          class="font-mono text-sm transition-colors"
+          style="color: var(--text-mid);"
+        >
+          Or reach out directly &rarr;
+        </a>
+      </p>
+    </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Browser chrome frames */
+  .browser-frame {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--border-mid);
+    box-shadow: var(--shadow-xl);
+    background: var(--bg-raised);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-shelf);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .browser-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .browser-url {
+    margin-left: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    background: var(--glass-03);
+  }
+
+  /* AI Co-Pilot section */
+  .ai-section {
+    background: var(--glass-03);
+    border: 1px solid var(--accent-border);
+    box-shadow: var(--shadow-glow);
+  }
+</style>
