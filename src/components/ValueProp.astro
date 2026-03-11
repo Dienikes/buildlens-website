@@ -1,0 +1,68 @@
+---
+/**
+ * ValueProp — Asymmetric problem/solution layout with product screenshot.
+ */
+import { Image } from 'astro:assets';
+import dashboardImg from '../assets/images/screenshot-dashboard.png';
+---
+
+<section id="value" class="py-32 lg:py-48 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
+    <!-- Left column: Problem / Solution -->
+    <div class="lg:col-span-3">
+      <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
+        The Problem
+      </p>
+
+      <h2 data-reveal="lines">
+        Spreadsheets. Email chains.<br />
+        Shared drives. Hope.
+      </h2>
+
+      <p data-reveal="fade" class="mt-8 text-lg" style="color: var(--text-mid);">
+        Construction teams juggle dozens of disconnected tools. Purchase orders in one system,
+        submittals in another, schedules on a whiteboard. Critical updates get buried in
+        email threads nobody reads.
+      </p>
+
+      <div
+        data-reveal="fade"
+        class="my-12 h-px w-full"
+        style="background: var(--border-mid);"
+      ></div>
+
+      <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
+        The Solution
+      </p>
+
+      <h3 data-reveal="lines" class="text-2xl lg:text-3xl" style="color: var(--text-lit);">
+        One platform. Every stakeholder.<br />
+        Zero double-entry.
+      </h3>
+
+      <p data-reveal="fade" class="mt-6 text-lg" style="color: var(--text-mid);">
+        BuildLens connects procurement, submittals, scheduling, and field coordination
+        into a single source of truth. When a PO ships, the schedule updates. When a
+        submittal is approved, the affected tasks move forward. Automatically.
+      </p>
+    </div>
+
+    <!-- Right column: Screenshot -->
+    <div class="lg:col-span-2">
+      <div
+        class="relative overflow-hidden rounded-2xl"
+        style="border: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg);"
+      >
+        <Image
+          src={dashboardImg}
+          alt="BuildLens project dashboard showing budget, schedule, and RFI status"
+          width={1360}
+          height={793}
+          loading="lazy"
+          class="w-full h-auto"
+          data-parallax="0.15"
+        />
+      </div>
+    </div>
+  </div>
+</section>
