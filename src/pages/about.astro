@@ -102,8 +102,7 @@ const values = [
               width={800}
               height={1067}
               loading="lazy"
-              class="w-full h-full object-cover object-top"
-              data-parallax="0.1"
+              class="w-full h-auto rounded-2xl"
             />
           </div>
           <p class="mt-4 text-center">
@@ -244,23 +243,13 @@ const values = [
   }
 
   .bio-photo-frame {
-    border-radius: 0.75rem;
-    overflow: hidden;
-    aspect-ratio: 3 / 4;
-    max-height: 600px;
+    max-width: 380px;
+    margin: 0 auto;
   }
 
-  @media (max-width: 1279px) and (min-width: 768px) {
+  @media (min-width: 1280px) {
     .bio-photo-frame {
-      aspect-ratio: 16 / 9;
-      max-height: 400px;
-    }
-  }
-
-  @media (max-width: 767px) {
-    .bio-photo-frame {
-      aspect-ratio: 3 / 4;
-      max-height: 480px;
+      max-width: 440px;
     }
   }
 
