@@ -1,0 +1,48 @@
+---
+/**
+ * Stats — Brand statistics with counter animations.
+ */
+const stats = [
+  { value: '12', label: 'Integrated Modules', isCounter: true },
+  { value: '100', label: 'Data Propagation %', isCounter: true },
+  { value: 'Zero', label: 'Double-Entry', isCounter: false },
+  { value: 'One', label: 'Source of Truth', isCounter: false },
+];
+---
+
+<section class="py-24 lg:py-32 px-6 lg:px-12">
+  <div class="max-w-6xl mx-auto">
+    <div
+      class="grid gap-12 text-center md:grid-cols-2 lg:grid-cols-4"
+      data-reveal="stagger"
+    >
+      {stats.map((stat) => (
+        <div>
+          {stat.isCounter ? (
+            <p
+              class="text-5xl lg:text-7xl font-bold"
+              style="color: var(--text-lit); text-shadow: 0 0 60px var(--accent-glow);"
+              data-reveal="counter"
+              data-target={stat.value}
+            >
+              {stat.value}
+            </p>
+          ) : (
+            <p
+              class="text-5xl lg:text-7xl font-bold"
+              style="color: var(--text-lit); text-shadow: 0 0 60px var(--accent-glow);"
+            >
+              {stat.value}
+            </p>
+          )}
+          <p
+            class="mt-4 font-mono text-xs uppercase tracking-[0.15em]"
+            style="color: var(--accent-dim);"
+          >
+            {stat.label}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
