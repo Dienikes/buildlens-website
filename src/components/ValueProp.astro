@@ -7,62 +7,123 @@ import dashboardImg from '../assets/images/screenshot-field-ops-dashboard.png';
 ---
 
 <section id="value" class="py-32 lg:py-48 px-6 lg:px-12">
-  <div class="max-w-7xl mx-auto grid lg:grid-cols-5 gap-12 lg:gap-16 items-start">
-    <!-- Left column: Problem / Solution -->
-    <div class="lg:col-span-3">
-      <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
-        The Problem
-      </p>
+  <div class="max-w-7xl mx-auto">
+    <!-- Two-column Problem / Solution -->
+    <div class="grid lg:grid-cols-2 gap-12 lg:gap-20">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
+          The Problem
+        </p>
 
-      <h2 data-reveal="lines">
-        Spreadsheets. Email chains.<br />
-        Shared drives. Hope.
-      </h2>
+        <h2 data-reveal="lines">
+          Spreadsheets. Email chains.<br />
+          Shared drives. Hope.
+        </h2>
 
-      <p data-reveal="fade" class="mt-8 text-lg" style="color: var(--text-mid);">
-        Construction teams juggle dozens of disconnected tools. Purchase orders in one system,
-        submittals in another, schedules on a whiteboard. Critical updates get buried in
-        email threads nobody reads.
-      </p>
+        <p data-reveal="fade" class="mt-8 text-lg" style="color: var(--text-mid);">
+          Construction teams juggle dozens of disconnected tools. Purchase orders in one system,
+          submittals in another, schedules on a whiteboard. Critical updates get buried in
+          email threads nobody reads.
+        </p>
+      </div>
 
-      <div
-        data-reveal="fade"
-        class="my-12 h-px w-full"
-        style="background: var(--border-mid);"
-      ></div>
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
+          The Solution
+        </p>
 
-      <p class="font-mono text-xs uppercase tracking-[0.2em] mb-6" style="color: var(--accent);">
-        The Solution
-      </p>
+        <h3 data-reveal="lines" class="text-2xl lg:text-3xl" style="color: var(--text-lit);">
+          One platform. Every stakeholder.<br />
+          Zero double-entry.
+        </h3>
 
-      <h3 data-reveal="lines" class="text-2xl lg:text-3xl" style="color: var(--text-lit);">
-        One platform. Every stakeholder.<br />
-        Zero double-entry.
-      </h3>
-
-      <p data-reveal="fade" class="mt-6 text-lg" style="color: var(--text-mid);">
-        BuildLens connects procurement, submittals, scheduling, and field coordination
-        into a single source of truth. When a PO ships, the schedule updates. When a
-        submittal is approved, the affected tasks move forward. Automatically.
-      </p>
+        <p data-reveal="fade" class="mt-6 text-lg" style="color: var(--text-mid);">
+          BuildLens connects procurement, submittals, scheduling, and field coordination
+          into a single source of truth. When a PO ships, the schedule updates. When a
+          submittal is approved, the affected tasks move forward. Automatically.
+        </p>
+      </div>
     </div>
 
-    <!-- Right column: Screenshot -->
-    <div class="lg:col-span-2">
-      <div
-        class="relative overflow-hidden rounded-2xl"
-        style="border: 1px solid var(--border-subtle); box-shadow: var(--shadow-lg);"
-      >
-        <Image
-          src={dashboardImg}
-          alt="BuildLens Field Operations Manager with AI Co-Pilot"
-          width={2537}
-          height={1345}
-          loading="lazy"
-          class="w-full h-auto"
-          data-parallax="0.15"
-        />
+    <!-- Full-bleed product screenshot — oversized to fill dead space -->
+    <div class="valueprop-screenshot mt-16 lg:mt-24" data-reveal="fade">
+      <div class="browser-frame">
+        <div class="browser-bar">
+          <span class="browser-dot" style="background: #ff5f57;"></span>
+          <span class="browser-dot" style="background: #febc2e;"></span>
+          <span class="browser-dot" style="background: #28c840;"></span>
+          <div class="browser-url">
+            <span class="font-mono text-xs" style="color: var(--text-shadow);">app.buildlens.com/field-ops</span>
+          </div>
+        </div>
+        <div class="overflow-hidden">
+          <Image
+            src={dashboardImg}
+            alt="BuildLens Field Operations Manager with AI Co-Pilot"
+            width={2537}
+            height={1345}
+            loading="lazy"
+            class="w-full h-auto block"
+            data-parallax="0.15"
+          />
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<style>
+  .valueprop-screenshot {
+    /* Break out of the max-w-7xl container for edge-to-edge impact */
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    .valueprop-screenshot {
+      margin-left: -3rem;
+      margin-right: -3rem;
+      padding: 0 3rem;
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .valueprop-screenshot {
+      /* Push beyond container to fill more horizontal space */
+      margin-left: -6rem;
+      margin-right: -6rem;
+      padding: 0;
+    }
+  }
+
+  .browser-frame {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    border: 1px solid var(--border-mid);
+    box-shadow: var(--shadow-xl);
+    background: var(--bg-raised);
+  }
+
+  .browser-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-shelf);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .browser-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+  }
+
+  .browser-url {
+    margin-left: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 0.375rem;
+    background: var(--glass-03);
+  }
+</style>

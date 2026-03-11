@@ -8,7 +8,7 @@
 
 <section class="hero-section min-h-screen flex flex-col justify-center relative">
   <div class="hero-content">
-    <h1 data-reveal="lines" class="hero-heading">
+    <h1 class="hero-heading hero-reveal">
       Construction<br />
       logistics. One<br />
       <span style="color: var(--accent);">source of truth.</span>
@@ -16,8 +16,7 @@
 
     <div class="hero-right">
       <p
-        data-reveal="fade"
-        class="text-lg lg:text-xl"
+        class="hero-reveal text-lg lg:text-xl"
         style="color: var(--text-mid);"
       >
         BuildLens consolidates purchase orders, submittals, scheduling, and field
@@ -70,6 +69,12 @@
 
   .hero-heading {
     line-height: 0.95;
+  }
+
+  /* Hero content is visible by default — no JS-driven reveal to avoid
+     double-animation with the splash screen dissolve */
+  .hero-reveal {
+    opacity: 1;
   }
 
   .hero-right {
