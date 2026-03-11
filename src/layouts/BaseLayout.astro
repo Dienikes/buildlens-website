@@ -3,17 +3,22 @@ import '../styles/global.css';
 import '../styles/animations.css';
 import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
 import Splash from '../components/Splash.astro';
 
 interface Props {
   title: string;
   description?: string;
+  ogImage?: string;
 }
 
 const {
   title,
   description = 'BuildLens consolidates purchase orders, submittals, scheduling, and field coordination into a single operational hub.',
+  ogImage = '/og-image.svg',
 } = Astro.props;
+
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
 ---
 
 <!doctype html>
@@ -24,24 +29,24 @@ const {
     <meta name="description" content={description} />
     <title>{title}</title>
 
+    <!-- Canonical -->
+    <link rel="canonical" href={canonicalUrl} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site).href} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(ogImage, Astro.site).href} />
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-
-    <!-- Font Preloads -->
-    <link
-      rel="preload"
-      href="/src/assets/fonts/dm-sans-latin-wght-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
-    <link
-      rel="preload"
-      href="/src/assets/fonts/jetbrains-mono-latin-400-normal.woff2"
-      as="font"
-      type="font/woff2"
-      crossorigin
-    />
 
     <ClientRouter />
   </head>
@@ -57,7 +62,7 @@ const {
       <slot />
     </main>
 
-    <!-- Footer will be added in Phase 5 -->
+    <Footer />
 
     <script>
       import '../scripts/init';

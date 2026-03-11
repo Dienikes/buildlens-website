@@ -1,0 +1,194 @@
+---
+/**
+ * ModuleGrid — All 12 platform modules + AI Co-Pilot in an asymmetric grid.
+ * AI Co-Pilot card spans 2 columns and is visually distinct.
+ */
+const modules = [
+  {
+    number: '01',
+    title: 'Project Dashboard',
+    description: 'Real-time visibility into budget, schedule, RFIs, and submittals from a single pane of glass.',
+    slug: 'dashboard',
+  },
+  {
+    number: '02',
+    title: 'Purchase Orders',
+    description: 'End-to-end PO lifecycle from creation through receipt with automated status updates and budget impact.',
+    slug: 'purchase-orders',
+  },
+  {
+    number: '03',
+    title: 'Submittals',
+    description: 'Automate routing, track approval status through multi-party review cycles.',
+    slug: 'submittals',
+  },
+  {
+    number: '04',
+    title: 'Equipment & Material Sourcing',
+    description: 'Vendor quote comparison, lead time tracking, and alternate material recommendations.',
+    slug: 'sourcing',
+  },
+  {
+    number: '05',
+    title: 'Subcontractor Management',
+    description: 'Prequalification, insurance tracking, performance scoring, and lien waiver collection.',
+    slug: 'subcontractors',
+  },
+  {
+    number: '06',
+    title: 'Bills of Materials',
+    description: 'Structured takeoffs tied to project scopes. BOM-to-PO conversion with one click.',
+    slug: 'bom',
+  },
+  {
+    number: '07',
+    title: 'Project Scheduling',
+    description: 'Gantt charts with dependencies, critical path, and baseline variance tracking.',
+    slug: 'scheduling',
+  },
+  {
+    number: '08',
+    title: 'Client & CRM',
+    description: 'Prospect pipeline, communication logs, and proposal tracking with win/loss analysis.',
+    slug: 'crm',
+  },
+  {
+    number: '09',
+    title: 'Budget & Cost Tracking',
+    description: 'Live cost tracking with forecasting. Budget vs. actual with trend analysis.',
+    slug: 'budget-cost',
+  },
+  {
+    number: '10',
+    title: 'Document Management',
+    description: 'Centralized storage with version control, transmittals, and drawing set management.',
+    slug: 'documents',
+  },
+  {
+    number: '11',
+    title: 'Reporting & Analytics',
+    description: 'Custom dashboards, scheduled reports, and portfolio-level trend analysis.',
+    slug: 'reporting',
+  },
+  {
+    number: '12',
+    title: 'Workflow Automation',
+    description: 'Event-driven alerts, automated status transitions, and escalation rules.',
+    slug: 'automation',
+  },
+];
+---
+
+<section class="py-32 lg:py-48 px-6 lg:px-12">
+  <div class="max-w-7xl mx-auto">
+    <p
+      class="font-mono text-xs uppercase tracking-[0.2em] mb-6 text-center"
+      style="color: var(--accent);"
+    >
+      Platform Modules
+    </p>
+
+    <h2 class="text-center mb-16 lg:mb-24" data-reveal="lines">
+      Everything your team needs.<br />
+      Nothing it doesn't.
+    </h2>
+
+    <div class="module-grid" data-reveal="stagger">
+      <!-- AI Co-Pilot — featured card, 2-col span -->
+      <div
+        class="module-card module-card-ai group p-8 lg:p-10 rounded-2xl transition-all duration-300"
+        data-cursor="action"
+      >
+        <div class="flex items-start justify-between gap-4 mb-4">
+          <p class="font-mono text-xs" style="color: var(--accent);">AI CO-PILOT</p>
+          <span class="ai-badge font-mono text-xs px-3 py-1 rounded-full">Network-Isolated</span>
+        </div>
+        <h3 class="text-2xl lg:text-3xl mb-4" style="color: var(--text-lit);">
+          Ask your project anything.
+        </h3>
+        <p class="text-sm leading-relaxed" style="color: var(--text-mid);">
+          AI that reads your schedule, budget, RFIs, submittals, inspections, change orders,
+          and weather data — without your data ever leaving the network. Contextual answers
+          in seconds, not hours of digging through spreadsheets.
+        </p>
+      </div>
+
+      {modules.map((mod) => (
+        <div
+          class="module-card group p-8 lg:p-10 rounded-2xl transition-all duration-300"
+          data-cursor="pointer"
+        >
+          <p class="font-mono text-xs mb-4" style="color: var(--accent-dim);">
+            {mod.number}
+          </p>
+          <h3 class="text-xl mb-3" style="color: var(--text-lit);">
+            {mod.title}
+          </h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-mid);">
+            {mod.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .module-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .module-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .module-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+  }
+
+  .module-card {
+    background: var(--glass-03);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .module-card:hover {
+    background: var(--glass-05);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+
+  /* AI Co-Pilot featured card */
+  .module-card-ai {
+    border-color: var(--accent-border);
+    background: var(--glass-05);
+    box-shadow: 0 0 40px rgba(240, 230, 211, 0.03);
+  }
+
+  @media (min-width: 768px) {
+    .module-card-ai {
+      grid-column: span 2;
+    }
+  }
+
+  .module-card-ai:hover {
+    background: var(--glass-08);
+    border-color: var(--accent);
+    box-shadow: 0 0 60px rgba(240, 230, 211, 0.06);
+  }
+
+  .ai-badge {
+    color: var(--accent-dim);
+    border: 1px solid var(--accent-border);
+    background: var(--accent-bg);
+    white-space: nowrap;
+  }
+</style>

@@ -9,6 +9,7 @@ import * as reveal from './reveal';
 import * as parallax from './parallax';
 import * as marquee from './marquee';
 import * as nav from './nav';
+import * as showcase from './showcase';
 
 const reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
 let isReducedMotion = reducedMotionQuery.matches;
@@ -31,11 +32,13 @@ function initAll(): void {
   reveal.init();
   parallax.init();
   marquee.init();
+  showcase.init();
   nav.init();
 }
 
 function destroyAll(): void {
   nav.destroy();
+  showcase.destroy();
   marquee.destroy();
   parallax.destroy();
   reveal.destroy();
@@ -52,7 +55,14 @@ reducedMotionQuery.addEventListener('change', () => {
 
 // Astro page transition lifecycle
 document.addEventListener('astro:page-load', () => {
-  if ((window as any).__splashActive) {
+  // The Splash script is a hoisted module — it only runs once.
+  // On subsequent client-side transitions, remove the overlay manually.
+  const splash = document.getElementById('splash-overlay');
+  if (splash && !window.__splashActive) {
+    splash.remove();
+  }
+
+  if (window.__splashActive) {
     // Splash is playing — wait for it to finish before starting animations
     window.addEventListener('splash:complete', () => initAll(), { once: true });
   } else {

@@ -97,18 +97,20 @@ if (overlay) {
           document.documentElement.style.overflow = '';
           overlay.remove();
           sessionStorage.setItem('buildlens-splash-seen', 'true');
-          window.__splashActive = false;
-          window.dispatchEvent(new CustomEvent('splash:complete'));
         },
       });
 
       tl
-        // Slow fade in — light and logo together, all at once
-        .to(light, { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, 0)
-        .to(logo, { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, 0.2)
-        // Hold at peak visibility
-        // Slow dramatic dissolve — entire overlay fades as one unit
-        .to(overlay, { opacity: 0, duration: 1.8, ease: 'power1.inOut' }, 3.0);
+        // Fade in — light and logo together
+        .to(light, { opacity: 1, duration: 1, ease: 'power1.inOut' }, 0)
+        .to(logo, { opacity: 1, duration: 1, ease: 'power1.inOut' }, 0.1)
+        // Fire initAll early so page animations start UNDER the dissolving overlay
+        .call(() => {
+          window.__splashActive = false;
+          window.dispatchEvent(new CustomEvent('splash:complete'));
+        }, [], 1.5)
+        // Dissolve overlay
+        .to(overlay, { opacity: 0, duration: 1.2, ease: 'power1.inOut' }, 1.8);
     }
   }
 }

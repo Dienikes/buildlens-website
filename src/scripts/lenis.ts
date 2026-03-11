@@ -12,6 +12,9 @@ let lenis: Lenis | null = null;
 let tickerCallback: ((time: number) => void) | null = null;
 
 export function init(): void {
+  // Reset native scroll to top before Lenis takes over
+  window.scrollTo(0, 0);
+
   lenis = new Lenis({
     lerp: 0.1,
     smoothWheel: true,

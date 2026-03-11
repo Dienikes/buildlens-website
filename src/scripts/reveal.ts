@@ -133,6 +133,13 @@ export function init(): void {
         break;
     }
   });
+
+  // After a page transition the scroll position is 0, so elements already
+  // in the viewport need their ScrollTriggers to fire immediately.
+  // A brief delay lets the DOM settle before recalculating positions.
+  requestAnimationFrame(() => {
+    ScrollTrigger.refresh();
+  });
 }
 
 export function destroy(): void {

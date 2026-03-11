@@ -1,0 +1,482 @@
+---
+/**
+ * Pricing Page — Tier cards with monthly/annual toggle.
+ * Phase 6d: 4 tiers (Team, Business, Operations, Enterprise).
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const tiers = [
+  {
+    name: 'Team',
+    monthly: 1899,
+    annual: 19188,
+    users: 'Up to 10 users',
+    features: [
+      'Pursuit & Proposal Manager',
+      'Field Operations Manager',
+      'Mobile access',
+      'Network-isolated AI module',
+      'Hosting included',
+    ],
+    cta: 'Get Started',
+    href: '/contact',
+    featured: false,
+  },
+  {
+    name: 'Business',
+    monthly: 2750,
+    annual: 27500,
+    users: 'Up to 20 users',
+    includes: 'Everything in Team',
+    features: [
+      'Advanced reporting & analytics',
+      'Custom workflow automation',
+      'Priority support',
+    ],
+    cta: 'Get Started',
+    href: '/contact',
+    featured: true,
+  },
+  {
+    name: 'Operations',
+    monthly: 4500,
+    annual: 45000,
+    users: 'Up to 30 users',
+    includes: 'Everything in Business',
+    features: [
+      'Dedicated account manager',
+      'Custom integrations',
+      'SLA-backed uptime guarantee',
+    ],
+    cta: 'Get Started',
+    href: '/contact',
+    featured: false,
+  },
+  {
+    name: 'Enterprise',
+    monthly: null,
+    annual: null,
+    users: '30+ users',
+    includes: 'Everything in Operations',
+    features: [
+      'White-glove onboarding',
+      'Custom SLA & compliance',
+      'Dedicated infrastructure',
+    ],
+    cta: 'Contact Sales',
+    href: '/contact',
+    featured: false,
+    enterprise: true,
+  },
+];
+---
+
+<BaseLayout
+  title="Pricing | BuildLens — Construction Logistics Platform"
+  description="Simple, transparent pricing for construction teams. No hidden fees. No per-user surcharges."
+>
+  <!-- Hero -->
+  <section class="pt-40 pb-16 lg:pt-48 lg:pb-20 px-6 lg:px-12 text-center">
+    <div class="max-w-4xl mx-auto">
+      <p
+        class="font-mono text-xs uppercase tracking-[0.2em] mb-6"
+        style="color: var(--accent);"
+        data-reveal="fade"
+      >
+        Pricing
+      </p>
+      <h1 class="pricing-heading" data-reveal="lines">
+        Simple Pricing.<br />No Surprises.
+      </h1>
+    </div>
+  </section>
+
+  <!-- Toggle -->
+  <section class="pb-8 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto flex justify-center">
+      <div class="billing-toggle" data-reveal="fade">
+        <span class="toggle-label toggle-label--active" id="label-monthly">Monthly</span>
+        <button
+          type="button"
+          class="toggle-track"
+          id="billing-toggle"
+          aria-label="Toggle annual billing"
+          data-cursor="pointer"
+        >
+          <span class="toggle-thumb"></span>
+        </button>
+        <span class="toggle-label" id="label-annual">
+          Annual
+          <span class="toggle-save">Save 16%</span>
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tier Cards -->
+  <section class="py-16 lg:py-24 px-6 lg:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="tier-grid" data-reveal="stagger">
+        {tiers.map((tier) => (
+          <div class:list={[
+            'tier-card',
+            { 'tier-card--featured': tier.featured },
+            { 'tier-card--enterprise': tier.enterprise },
+          ]}>
+            {tier.featured && (
+              <div class="tier-badge">Most Popular</div>
+            )}
+            <p class="tier-name">{tier.name}</p>
+
+            {tier.monthly !== null ? (
+              <div class="tier-price">
+                <span class="price-amount" data-monthly={tier.monthly} data-annual={tier.annual}>
+                  ${tier.monthly.toLocaleString()}
+                </span>
+                <span class="price-period">/mo</span>
+              </div>
+            ) : (
+              <div class="tier-price">
+                <span class="price-amount price-custom">Custom</span>
+              </div>
+            )}
+
+            <p class="tier-users">{tier.users}</p>
+
+            {tier.includes && (
+              <p class="tier-includes">{tier.includes}, plus:</p>
+            )}
+
+            <ul class="tier-features">
+              {tier.features.map((f) => (
+                <li class="tier-feature">
+                  <span class="feature-check">&#10003;</span>
+                  {f}
+                </li>
+              ))}
+            </ul>
+
+            <div class="tier-cta">
+              <a
+                href={tier.href}
+                data-magnetic
+                data-cursor="pointer"
+                class:list={[
+                  'tier-btn',
+                  { 'tier-btn--primary': tier.featured },
+                  { 'tier-btn--outline': !tier.featured },
+                ]}
+              >
+                {tier.cta}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Disclaimer -->
+  <section class="pb-32 lg:pb-48 px-6 lg:px-12 text-center">
+    <div class="max-w-3xl mx-auto">
+      <p class="disclaimer" data-reveal="fade">
+        All plans include hosting, updates, and support. No hidden fees.
+        No ACV-based pricing. No per-user surcharges.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  function initBillingToggle() {
+    const toggle = document.getElementById('billing-toggle');
+    const labelMonthly = document.getElementById('label-monthly');
+    const labelAnnual = document.getElementById('label-annual');
+    const prices = document.querySelectorAll<HTMLElement>('.price-amount[data-monthly]');
+
+    if (!toggle || !labelMonthly || !labelAnnual) return;
+
+    let isAnnual = false;
+
+    toggle.addEventListener('click', () => {
+      isAnnual = !isAnnual;
+      toggle.classList.toggle('toggle-track--active', isAnnual);
+
+      labelMonthly.classList.toggle('toggle-label--active', !isAnnual);
+      labelAnnual.classList.toggle('toggle-label--active', isAnnual);
+
+      prices.forEach((el) => {
+        const monthly = Number(el.dataset.monthly);
+        const annual = Number(el.dataset.annual);
+        const value = isAnnual ? annual : monthly;
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(4px)';
+        setTimeout(() => {
+          el.textContent = `$${value.toLocaleString()}`;
+          el.style.opacity = '1';
+          el.style.transform = 'translateY(0)';
+        }, 150);
+      });
+
+      // Update period labels
+      document.querySelectorAll('.price-period').forEach((el) => {
+        el.textContent = isAnnual ? '/yr' : '/mo';
+      });
+    });
+  }
+
+  // Run on page load (Astro transitions)
+  document.addEventListener('astro:page-load', initBillingToggle);
+</script>
+
+<style>
+  /* Heading */
+  .pricing-heading {
+    font-size: clamp(2.5rem, 7vw, 7rem);
+    line-height: 0.95;
+  }
+
+  /* Billing Toggle */
+  .billing-toggle {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .toggle-label {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-shadow);
+    transition: color 0.3s;
+    user-select: none;
+  }
+
+  .toggle-label--active {
+    color: var(--text-lit);
+  }
+
+  .toggle-save {
+    display: inline-block;
+    font-size: 0.625rem;
+    background: var(--accent-glow);
+    color: var(--accent);
+    padding: 0.125rem 0.5rem;
+    border-radius: 9999px;
+    margin-left: 0.375rem;
+    vertical-align: middle;
+  }
+
+  .toggle-track {
+    position: relative;
+    width: 48px;
+    height: 26px;
+    border-radius: 13px;
+    background: var(--glass-05);
+    border: 1px solid var(--border-subtle);
+    cursor: none;
+    transition: background 0.3s;
+    flex-shrink: 0;
+  }
+
+  .toggle-track--active {
+    background: var(--accent-dim);
+  }
+
+  .toggle-thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--text-lit);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .toggle-track--active .toggle-thumb {
+    transform: translateX(22px);
+  }
+
+  /* Tier Grid */
+  .tier-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .tier-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    .tier-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+
+  /* Tier Card */
+  .tier-card {
+    position: relative;
+    background: var(--glass-03);
+    border: 1px solid var(--border-subtle);
+    border-radius: 1rem;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+
+  .tier-card:hover {
+    border-color: var(--accent-border);
+  }
+
+  .tier-card--featured {
+    border-color: var(--accent-border);
+    box-shadow: var(--shadow-glow);
+    background: var(--glass-06);
+  }
+
+  .tier-card--enterprise {
+    background: var(--glass-01);
+    border-color: var(--border-mid);
+  }
+
+  /* Badge */
+  .tier-badge {
+    position: absolute;
+    top: -0.75rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    background: var(--accent);
+    color: var(--bg-abyss);
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    white-space: nowrap;
+  }
+
+  .tier-name {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--accent-dim);
+    margin-bottom: 1rem;
+  }
+
+  .tier-price {
+    margin-bottom: 0.5rem;
+  }
+
+  .price-amount {
+    font-size: 2.5rem;
+    font-weight: 800;
+    color: var(--text-lit);
+    transition: opacity 0.15s, transform 0.15s;
+  }
+
+  .price-custom {
+    font-size: 2rem;
+  }
+
+  .price-period {
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    color: var(--text-shadow);
+    margin-left: 0.25rem;
+  }
+
+  .tier-users {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .tier-includes {
+    font-size: 0.8125rem;
+    color: var(--text-mid);
+    font-style: italic;
+    margin-bottom: 0.75rem;
+  }
+
+  /* Features */
+  .tier-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    flex: 1;
+    margin-bottom: 2rem;
+  }
+
+  .tier-feature {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+
+  .feature-check {
+    color: var(--accent-dim);
+    font-size: 0.75rem;
+    margin-top: 0.125rem;
+    flex-shrink: 0;
+  }
+
+  /* CTA Button */
+  .tier-cta {
+    margin-top: auto;
+  }
+
+  .tier-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0.875rem 1.5rem;
+    border-radius: 9999px;
+    font-family: var(--font-mono);
+    font-size: 0.8125rem;
+    text-decoration: none;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+    cursor: none;
+    min-height: 44px;
+  }
+
+  .tier-btn--primary {
+    background: var(--accent);
+    color: var(--bg-abyss);
+    border: 1px solid var(--accent);
+  }
+
+  .tier-btn--primary:hover {
+    background: var(--text-lit);
+    border-color: var(--text-lit);
+  }
+
+  .tier-btn--outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent-border);
+  }
+
+  .tier-btn--outline:hover {
+    background: var(--glass-06);
+    border-color: var(--accent);
+  }
+
+  /* Disclaimer */
+  .disclaimer {
+    font-size: 0.875rem;
+    color: var(--text-mid);
+    max-width: 100%;
+  }
+</style>
