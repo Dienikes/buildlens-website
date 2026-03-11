@@ -1,0 +1,226 @@
+@import "tailwindcss";
+@import "./fonts.css";
+
+/* ============================================================
+   Tailwind 4.x Theme — Design Tokens
+   ============================================================ */
+@theme {
+  --color-bg-abyss: #05060A;
+  --color-bg-deep: #08090E;
+  --color-bg-mid: #0D1117;
+  --color-bg-raised: #161B22;
+  --color-bg-shelf: #1C2128;
+
+  --color-text-lit: #E8E0D4;
+  --color-text-mid: #8B8578;
+  --color-text-shadow: #4A4A52;
+  --color-text-deep: #2A2A30;
+
+  --color-accent: #F0E6D3;
+  --color-accent-dim: #8B7D6B;
+
+  --font-sans: 'DM Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ============================================================
+   CSS Custom Properties — Full Design System
+   ============================================================ */
+:root {
+  /* Background depth tiers */
+  --bg-abyss: #05060A;
+  --bg-deep: #08090E;
+  --bg-mid: #0D1117;
+  --bg-raised: #161B22;
+  --bg-shelf: #1C2128;
+  --bg-body: radial-gradient(ellipse at 30% 20%, #0D1117 0%, #08090E 50%, #05060A 100%);
+
+  /* Glass layers */
+  --glass-01: rgba(255, 255, 255, 0.01);
+  --glass-02: rgba(255, 255, 255, 0.02);
+  --glass-03: rgba(255, 255, 255, 0.03);
+  --glass-04: rgba(255, 255, 255, 0.04);
+  --glass-05: rgba(255, 255, 255, 0.05);
+  --glass-06: rgba(255, 255, 255, 0.06);
+  --glass-08: rgba(255, 255, 255, 0.08);
+  --glass-10: rgba(255, 255, 255, 0.10);
+  --glass-12: rgba(255, 255, 255, 0.12);
+
+  /* Text — warm gold, not white */
+  --text-lit: #E8E0D4;
+  --text-mid: #8B8578;
+  --text-shadow: #4A4A52;
+  --text-deep: #2A2A30;
+
+  /* Accent — Rembrandt Gold */
+  --accent: #F0E6D3;
+  --accent-dim: #8B7D6B;
+  --accent-glow: rgba(240, 230, 211, 0.06);
+  --accent-bg: rgba(240, 230, 211, 0.08);
+  --accent-border: rgba(240, 230, 211, 0.20);
+
+  /* Borders — glass-like, not hard lines */
+  --border-subtle: rgba(255, 255, 255, 0.04);
+  --border-mid: rgba(255, 255, 255, 0.06);
+  --border-strong: rgba(255, 255, 255, 0.08);
+  --border-bright: rgba(255, 255, 255, 0.12);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-xl: 0 16px 48px rgba(0, 0, 0, 0.6);
+  --shadow-float: 0 20px 60px rgba(0, 0, 0, 0.6);
+  --shadow-glow: 0 0 20px rgba(240, 230, 211, 0.05);
+
+  /* Status colors (for product screenshots / UI elements) */
+  --status-green: #2DD4A8;
+  --status-amber: #F5A623;
+  --status-red: #E84855;
+  --status-blue: #4C8BF5;
+  --status-purple: #8B5CF6;
+
+  /* Spacing scale */
+  --space-xs: 0.5rem;
+  --space-sm: 1rem;
+  --space-md: 2rem;
+  --space-lg: 4rem;
+  --space-xl: 8rem;
+  --space-2xl: 12rem;
+  --space-3xl: 16rem;
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  cursor: none;
+  scroll-behavior: auto; /* Lenis handles scrolling */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--bg-body);
+  color: var(--text-mid);
+  font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* Cursor overrides */
+html,
+html * {
+  cursor: none;
+}
+
+input,
+textarea,
+select {
+  cursor: text;
+}
+
+/* ============================================================
+   Typography Base
+   ============================================================ */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-lit);
+  font-weight: 700;
+  line-height: 1.1;
+  text-shadow: 0 0 60px var(--accent-glow);
+}
+
+h1 {
+  font-size: clamp(2.5rem, 8vw, 10rem);
+  font-weight: 800;
+}
+
+h2 {
+  font-size: clamp(2rem, 5vw, 5rem);
+}
+
+h3 {
+  font-size: clamp(1.5rem, 3vw, 3rem);
+}
+
+p {
+  max-width: 65ch;
+}
+
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--text-lit);
+}
+
+/* Monospace accent labels */
+.font-mono {
+  font-family: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ============================================================
+   Skip-to-Content
+   ============================================================ */
+.skip-to-content {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  z-index: 10000;
+  padding: 0.75rem 1.5rem;
+  background: var(--accent);
+  color: var(--bg-abyss);
+  font-weight: 700;
+  border-radius: 0 0 0.5rem 0.5rem;
+  transition: top 0.2s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+/* ============================================================
+   Focus Styles
+   ============================================================ */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* ============================================================
+   Selection
+   ============================================================ */
+::selection {
+  background: var(--accent-bg);
+  color: var(--text-lit);
+}
+
+/* ============================================================
+   Reduced Motion
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html,
+  html * {
+    cursor: auto !important;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

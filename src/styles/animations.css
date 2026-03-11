@@ -1,0 +1,55 @@
+/* ============================================================
+   Clip-Path Utilities for Reveal Animations
+   ============================================================
+   GSAP handles all scroll-triggered animation. These are
+   utility classes for initial/final states only.
+   ============================================================ */
+
+/* Text reveal: clip from bottom */
+.clip-reveal {
+  clip-path: inset(0 0 100% 0);
+}
+
+.clip-reveal-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Horizontal wipe: clip from right */
+.clip-wipe {
+  clip-path: inset(0 100% 0 0);
+}
+
+.clip-wipe-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* ============================================================
+   Perpetual Micro-Animations (CSS-only)
+   Only for perpetual loops — GSAP handles scroll/interaction.
+   ============================================================ */
+
+/* Scroll indicator pulse */
+@keyframes pulse-down {
+  0%, 100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(8px);
+  }
+}
+
+.animate-pulse-down {
+  animation: pulse-down 2s ease-in-out infinite;
+}
+
+/* Subtle glow pulse for accent elements */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(240, 230, 211, 0.05);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(240, 230, 211, 0.1);
+  }
+}

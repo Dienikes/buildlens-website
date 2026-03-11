@@ -1,0 +1,58 @@
+---
+import '../styles/global.css';
+import '../styles/animations.css';
+import { ClientRouter } from 'astro:transitions';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'BuildLens consolidates purchase orders, submittals, scheduling, and field coordination into a single operational hub.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Font Preloads -->
+    <link
+      rel="preload"
+      href="/src/assets/fonts/dm-sans-latin-wght-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/src/assets/fonts/jetbrains-mono-latin-400-normal.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+
+    <ClientRouter />
+  </head>
+  <body>
+    <!-- Skip to content -->
+    <a href="#main-content" class="skip-to-content">Skip to content</a>
+
+    <!-- Nav will be added in Phase 3 -->
+
+    <main id="main-content">
+      <slot />
+    </main>
+
+    <!-- Footer will be added in Phase 5 -->
+  </body>
+</html>
