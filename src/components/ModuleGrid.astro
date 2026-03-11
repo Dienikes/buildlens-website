@@ -1,0 +1,96 @@
+---
+/**
+ * ModuleGrid — 6 key platform modules in a staggered card grid.
+ */
+const modules = [
+  {
+    number: '01',
+    title: 'Project Dashboard',
+    description: 'Real-time visibility into budget, schedule, RFIs, and submittals from a single pane of glass.',
+    slug: 'dashboard',
+  },
+  {
+    number: '02',
+    title: 'Purchase Orders',
+    description: 'Track every line item from requisition to delivery with automated status updates.',
+    slug: 'purchase-orders',
+  },
+  {
+    number: '03',
+    title: 'Submittals',
+    description: 'Automate routing, track approval status, and eliminate lost submittals.',
+    slug: 'submittals',
+  },
+  {
+    number: '04',
+    title: 'Scheduling',
+    description: 'Gantt charts that sync with your procurement pipeline. See the real timeline.',
+    slug: 'scheduling',
+  },
+  {
+    number: '05',
+    title: 'Budget & Cost',
+    description: 'Live cost tracking with forecasting. Know where you stand before the monthly close.',
+    slug: 'budget-cost',
+  },
+  {
+    number: '06',
+    title: 'Reporting',
+    description: 'Custom dashboards and exportable reports for owners, PMs, and field teams.',
+    slug: 'reporting',
+  },
+];
+---
+
+<section class="py-32 lg:py-48 px-6 lg:px-12">
+  <div class="max-w-6xl mx-auto">
+    <p
+      class="font-mono text-xs uppercase tracking-[0.2em] mb-6 text-center"
+      style="color: var(--accent);"
+    >
+      Platform Modules
+    </p>
+
+    <h2 class="text-center mb-16 lg:mb-24" data-reveal="lines">
+      Everything your team needs.<br />
+      Nothing it doesn't.
+    </h2>
+
+    <div
+      class="grid gap-4 lg:gap-6 md:grid-cols-2 lg:grid-cols-3"
+      data-reveal="stagger"
+    >
+      {modules.map((mod) => (
+        <a
+          href={`/platform#${mod.slug}`}
+          class="module-card group p-8 lg:p-10 rounded-2xl transition-all duration-300"
+          data-cursor="pointer"
+        >
+          <p class="font-mono text-xs mb-4" style="color: var(--accent-dim);">
+            {mod.number}
+          </p>
+          <h3 class="text-xl mb-3" style="color: var(--text-lit);">
+            {mod.title}
+          </h3>
+          <p class="text-sm leading-relaxed" style="color: var(--text-mid);">
+            {mod.description}
+          </p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .module-card {
+    background: var(--glass-03);
+    border: 1px solid var(--border-subtle);
+  }
+
+  .module-card:hover {
+    background: var(--glass-05);
+    border-color: var(--border-strong);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+</style>
