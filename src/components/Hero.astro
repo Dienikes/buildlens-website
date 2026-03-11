@@ -1,0 +1,51 @@
+---
+/**
+ * Hero — Above-the-fold intro section.
+ * No data-reveal attributes: the splash screen provides the entrance animation.
+ */
+---
+
+<section class="min-h-screen flex flex-col justify-center px-6 lg:px-12 relative">
+  <div class="max-w-7xl mx-auto w-full">
+    <h1>
+      Construction logistics.<br />
+      <span style="color: var(--accent);">One source of truth.</span>
+    </h1>
+
+    <p
+      class="mt-8 lg:mt-10 text-lg lg:text-xl max-w-2xl lg:ml-auto"
+      style="color: var(--text-mid);"
+    >
+      BuildLens consolidates purchase orders, submittals, scheduling, and field
+      coordination into a single operational hub. Built by operators, for operators.
+    </p>
+
+    <div class="mt-12 lg:mt-16 flex flex-col sm:flex-row items-start sm:items-center gap-6 lg:ml-auto lg:max-w-2xl">
+      <a
+        href="/contact"
+        data-magnetic
+        data-cursor="action"
+        class="inline-flex items-center justify-center px-8 py-4 border rounded-full font-mono text-sm transition-colors min-w-[180px] min-h-[44px]"
+        style="color: var(--accent); border-color: var(--accent-border);"
+      >
+        Request a Demo
+      </a>
+      <a
+        href="#value"
+        data-cursor="pointer"
+        class="font-mono text-sm transition-colors"
+        style="color: var(--text-mid);"
+      >
+        Learn more &darr;
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
+    <p class="font-mono text-xs uppercase tracking-[0.2em]" style="color: var(--accent-dim);">
+      Scroll
+    </p>
+    <div class="w-px h-8 animate-pulse-down" style="background: var(--accent-dim);"></div>
+  </div>
+</section>
