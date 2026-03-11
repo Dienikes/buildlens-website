@@ -3,6 +3,7 @@ import '../styles/global.css';
 import '../styles/animations.css';
 import { ClientRouter } from 'astro:transitions';
 import Nav from '../components/Nav.astro';
+import Splash from '../components/Splash.astro';
 
 interface Props {
   title: string;
@@ -45,6 +46,8 @@ const {
     <ClientRouter />
   </head>
   <body>
+    <Splash />
+
     <!-- Skip to content -->
     <a href="#main-content" class="skip-to-content">Skip to content</a>
 

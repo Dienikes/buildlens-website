@@ -1,0 +1,115 @@
+---
+import fullLogoRaw from '../assets/logo/buildlens-full.svg?raw';
+---
+
+<div id="splash-overlay" aria-hidden="true">
+  <div class="splash-light"></div>
+  <div class="splash-logo" set:html={fullLogoRaw} />
+</div>
+
+<style>
+  #splash-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg-abyss);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: opacity;
+  }
+
+  .splash-light {
+    position: absolute;
+    inset: 0;
+    background:
+      /* Key light: warm directional from upper-left */
+      radial-gradient(
+        ellipse 60% 70% at 30% 25%,
+        rgba(240, 230, 211, 0.08) 0%,
+        rgba(240, 230, 211, 0.03) 40%,
+        transparent 70%
+      ),
+      /* Hot spot: tighter, brighter, near center */
+      radial-gradient(
+        ellipse 30% 40% at 40% 40%,
+        rgba(240, 230, 211, 0.06) 0%,
+        transparent 60%
+      ),
+      /* Vignette: dark edges push eye inward */
+      radial-gradient(
+        ellipse 70% 70% at 50% 50%,
+        transparent 30%,
+        rgba(5, 6, 10, 0.5) 100%
+      );
+    opacity: 0;
+    will-change: opacity;
+  }
+
+  .splash-logo {
+    position: relative;
+    z-index: 1;
+    color: var(--text-lit);
+    width: clamp(280px, 50vw, 500px);
+    opacity: 0;
+    will-change: opacity;
+    filter: drop-shadow(0 0 40px rgba(240, 230, 211, 0.08));
+  }
+
+  .splash-logo :global(svg) {
+    width: 100%;
+    height: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    #splash-overlay {
+      display: none !important;
+    }
+  }
+</style>
+
+<script>
+import { gsap } from 'gsap';
+
+declare global {
+  interface Window {
+    __splashActive?: boolean;
+  }
+}
+
+const overlay = document.getElementById('splash-overlay');
+if (overlay) {
+  const seen = sessionStorage.getItem('buildlens-splash-seen');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (seen || reducedMotion) {
+    overlay.remove();
+  } else {
+    window.__splashActive = true;
+    document.documentElement.style.overflow = 'hidden';
+
+    const light = overlay.querySelector<HTMLElement>('.splash-light');
+    const logo = overlay.querySelector<HTMLElement>('.splash-logo');
+
+    if (light && logo) {
+      const tl = gsap.timeline({
+        onComplete() {
+          document.documentElement.style.overflow = '';
+          overlay.remove();
+          sessionStorage.setItem('buildlens-splash-seen', 'true');
+          window.__splashActive = false;
+          window.dispatchEvent(new CustomEvent('splash:complete'));
+        },
+      });
+
+      tl
+        // Slow fade in — light and logo together, all at once
+        .to(light, { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, 0)
+        .to(logo, { opacity: 1, duration: 1.5, ease: 'power1.inOut' }, 0.2)
+        // Hold at peak visibility
+        // Slow dramatic dissolve — entire overlay fades as one unit
+        .to(overlay, { opacity: 0, duration: 1.8, ease: 'power1.inOut' }, 3.0);
+    }
+  }
+}
+</script>

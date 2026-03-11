@@ -1,4 +1,7 @@
 ---
+import wordmarkRaw from '../assets/logo/buildlens-wordmark.svg?raw';
+import monogramRaw from '../assets/logo/buildlens-monogram.svg?raw';
+
 const currentPath = Astro.url.pathname;
 
 const links = [
@@ -15,8 +18,9 @@ const links = [
 >
   <div class="mx-auto flex items-center justify-between px-6 lg:px-12" style="height: 80px;">
     <!-- Logo -->
-    <a href="/" class="flex items-center gap-2 text-xl font-bold" data-cursor="pointer" style="color: var(--text-lit);">
-      <span style="color: var(--accent);">BL</span>
+    <a href="/" class="nav-logo flex items-center" data-cursor="pointer" style="color: var(--text-lit);">
+      <span class="nav-logo-wordmark" set:html={wordmarkRaw} />
+      <span class="nav-logo-monogram" set:html={monogramRaw} />
     </a>
 
     <!-- Desktop Nav Links -->
@@ -68,9 +72,9 @@ const links = [
   style="background: var(--bg-deep);"
   aria-hidden="true"
 >
-  <div class="flex items-center justify-between px-6" style="height: 64px;">
-    <a href="/" class="text-xl font-bold" style="color: var(--text-lit);">
-      <span style="color: var(--accent);">BL</span>
+  <div class="flex items-center justify-between px-6" style="height: 80px;">
+    <a href="/" class="nav-logo" style="color: var(--text-lit);">
+      <span class="nav-logo-monogram" set:html={monogramRaw} />
     </a>
     <button
       id="nav-close"
@@ -114,6 +118,42 @@ const links = [
 </div>
 
 <style>
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+  }
+  .nav-logo-wordmark {
+    display: none;
+    align-items: center;
+    line-height: 0;
+  }
+  .nav-logo-monogram {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+  }
+  @media (min-width: 768px) {
+    .nav-logo-wordmark {
+      display: flex;
+    }
+    .nav-logo-monogram {
+      display: none;
+    }
+  }
+  .nav-logo-wordmark :global(svg) {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+  .nav-logo-monogram :global(svg) {
+    height: 32px;
+    width: auto;
+    display: block;
+  }
+  .nav-logo:hover {
+    filter: drop-shadow(0 0 20px var(--accent-glow));
+  }
   .nav-link {
     color: var(--text-mid);
   }

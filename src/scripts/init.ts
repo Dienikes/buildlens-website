@@ -52,7 +52,12 @@ reducedMotionQuery.addEventListener('change', () => {
 
 // Astro page transition lifecycle
 document.addEventListener('astro:page-load', () => {
-  initAll();
+  if ((window as any).__splashActive) {
+    // Splash is playing — wait for it to finish before starting animations
+    window.addEventListener('splash:complete', () => initAll(), { once: true });
+  } else {
+    initAll();
+  }
 });
 
 document.addEventListener('astro:before-swap', () => {
