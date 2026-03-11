@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import '../styles/animations.css';
 import { ClientRouter } from 'astro:transitions';
+import Nav from '../components/Nav.astro';
 
 interface Props {
   title: string;
@@ -47,7 +48,7 @@ const {
     <!-- Skip to content -->
     <a href="#main-content" class="skip-to-content">Skip to content</a>
 
-    <!-- Nav will be added in Phase 3 -->
+    <Nav />
 
     <main id="main-content">
       <slot />
