@@ -1,0 +1,58 @@
+---
+/**
+ * CTASection — Final call-to-action before footer.
+ */
+---
+
+<section class="py-32 lg:py-48 px-6 relative">
+  <div class="cta-glow"></div>
+
+  <div class="max-w-3xl mx-auto text-center relative z-10">
+    <h2 data-reveal="lines">
+      Ready to see it<br />
+      in action?
+    </h2>
+
+    <a
+      href="/contact"
+      data-magnetic
+      data-cursor="action"
+      data-reveal="fade"
+      class="mt-12 inline-flex items-center justify-center px-10 py-5 border rounded-full font-mono text-base transition-colors min-w-[220px] min-h-[56px]"
+      style="color: var(--accent); border-color: var(--accent-border);"
+    >
+      Request a Demo
+    </a>
+
+    <p data-reveal="fade" class="mt-8">
+      <a
+        href="/contact"
+        class="font-mono text-sm transition-colors cta-secondary"
+        data-cursor="pointer"
+      >
+        Or reach out directly &rarr;
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .cta-glow {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at 50% 50%,
+      rgba(240, 230, 211, 0.04) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .cta-secondary {
+    color: var(--text-mid);
+  }
+
+  .cta-secondary:hover {
+    color: var(--accent);
+  }
+</style>
